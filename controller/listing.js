@@ -68,7 +68,7 @@ module.exports.search = async (req, res, next) => {
         count++;
       }
       sum = sum / listings[0].reviews.length;
-      res.render("listing/search.ejs", { listings, sum, count });
+      res.render("listing/search.ejs", { listing: listings[0], sum, count });
     }
   }
 };
