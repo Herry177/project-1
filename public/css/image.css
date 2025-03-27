@@ -1,0 +1,43 @@
+.img-container{
+    width: 100% !important;
+    height: 24.5rem !important;
+    position: relative;
+    overflow: hidden;  
+}
+
+.slide {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    transition: 1s; 
+}
+
+.next{
+    z-index: 2;
+    position: absolute;
+    top: 45%;
+    left: 90%;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none !important;
+    font-size: 1.5rem;
+    color: rgb(255, 255, 255);
+}
+
+.previous{
+    z-index: 2;
+    position: absolute;
+    top: 45%;
+    left: 3%;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none !important;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+@media (max-width: 700px) {
+    .next{
+        left: 86%;
+    }    
+}

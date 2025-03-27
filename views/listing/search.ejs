@@ -1,0 +1,171 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3 mb-5">
+  <div class="col-10 offset-1 col-lg-6 offset-lg-3">
+    <h3 class="mb-3"><%= listings[0].title %></h3>
+  </div>
+
+  <!-- listing detail -->
+
+  <div class="card col-10 offset-1 col-lg-6 offset-lg-3 show-card listing-card">
+    <div class="img-container">
+      <% for(image of listing.image) {%>
+        <img
+      src="<%= image.url %>"
+      class="slide card-img-top show-img"
+      alt="listing_image"
+      />
+      <%}%>
+      <button class="previous"><i class="fa-solid fa-circle-chevron-left"></i></button>
+      <button class="next"><i class="fa-solid fa-circle-chevron-right"></i></button>
+    </div>
+    <div class="card-body">
+      <p class="card-text">       
+        <p class="card-text"> <i>Owned by <%= listings[0].owner.username %></i></p>       
+        <p class="card-text"><%= listings[0].description %></p>
+        <p class="card-text">
+        <% if (sum > 0) {%>
+        <span>Rating : <%= Number(sum).toFixed(1) %></span>
+        <% } else { %>
+        <span>No rating yet</span>
+        <% } %>
+        <span class="rating">
+          <% if (sum > 0) { %> <% for (let i = 1; i <= sum; i++) { %>
+          <i class="fa-solid fa-star"></i>
+          <% } %> <% } %> <% if (sum > 0 && sum % 1 != 0) {%>
+          <i class="fa-solid fa-star-half-alt"></i>
+          <% } %>
+        </span>
+      </p>
+      <p class="card-text">&#8377;<%= listings[0].price.toLocaleString("en-IN") %></p>
+      <p class="card-text"><%= listings[0].location %></p>
+      <p class="card-text"><%= listings[0].country %></p>
+      </p>
+    </div>
+  </div>
+<% if(currUser && currUser._id.equals(listings[0].owner._id)) {%>
+  <div class="btns">
+    <a
+      class="btn btn-dark edit-btn col-1 offset-3"
+      href="/listings/<%= listings[0]._id %>/edit"
+      >Edit</a
+    >
+
+    <form method="post" action="/listings/<%= listings[0]._id %>?_method=Delete">
+      <button style="width: 6rem" class="btn btn-dark offset-5">Delete</button>
+    </form>
+  </div>
+  <%}%>
+  <!-- ratings and reviews section -->
+
+  <div class="col-10 offset-1 col-lg-6 offset-lg-3 mb-3">
+    <hr />
+    <% if(currUser) {%>
+    <form method="post" novalidate class="needs-validation" action="/listings/<%= listings[0]._id %>/review">
+      <div class="mt-3 mb-4">
+        <label class="form-label" for="range">Rating</label>
+        <input
+          type="range"
+          name="review[rating]"
+          class="form-range"
+          min="1"
+          max="5"
+          id="range"
+        />
+      </div>
+      <div class="mt-3 mb-3">
+        <label class="form-label" for="comment">Comment</label>
+        <textarea
+          name="review[comment]"
+          id="comment"
+          rows="5"
+          cols="30"
+          class="form-control"
+          id="comment"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please add comment for review.</div>
+      </div>
+      <button class="btn btn-outline-dark">Submit</button>
+    </form>
+
+    <hr />
+    <%}%>
+
+    <!-- overall views -->
+
+    <div class="overallview">
+      <div class="container-ratings-count">
+        <img
+          class="rating-deco-img"
+          src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-GuestFavorite/original/78b7687c-5acf-4ef8-a5ea-eda732ae3b2f.png"
+          alt="img"
+        />
+        <div>
+          <div class="review-rating-count">
+            <% if (sum > 0) {%>
+            <span><%= Number(sum).toFixed(1) %></span>
+            <% } else { %> <span>No rating yet</span>
+            <% } %>
+            <span class="rating">
+              <% if (sum > 0) { %> <% for (let i = 1; i <= sum; i++) { %>
+              <i class="fa-solid fa-star"></i>
+              <% } %> <% } %> <% if (sum > 0 && sum % 1 != 0) {%>
+              <i class="fa-solid fa-star-half-alt"></i>
+              <% } %>
+            </span>
+          </div>
+          <div class="review-rating-count">
+            <b>Overall rating</b>
+          </div>
+        </div>
+        <img
+          class="rating-deco-img"
+          src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-GuestFavorite/original/b4005b30-79ff-4287-860c-67829ecd7412.png"
+          alt="img"
+        />
+      </div>
+      <div class="vertical-line"></div>
+      <div class="container-reviews-count">
+        <div class="review-rating-count"><%= count %></div>
+        <div class="review-rating-count"><b>Reviews</b></div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- displaying reviews -->
+
+    <p><b>All Reviews</b></p>
+    <div class="row">
+      <% for (review of listings[0].reviews){ %>
+      <div class="card col-8 col-lg-5 ms-3 mb-3 pt-2">
+        <div class="card-body">
+          <h5 class="card-title">@<%= review.author.username %></h5>
+          <p class="card-text"><%= review.comment %></p>
+          <p class="card-text">
+            <%= review.rating %>
+            <span class="rating"><i class="fa-solid fa-star"></i></span>
+          </p>
+        </div>
+        <% if(currUser && currUser._id.equals(review.author._id)) {%>
+        <div class="review-btn-container">
+          <form
+            class="mb-3"
+            method="Post"
+            action="/listings/<%= listings[0]._id %>/review/<%= review._id %>?_method=Delete "
+          >
+            <button class="btn btn-sm btn-dark mt-2">Delete</button>
+          </form>
+          <a
+            href="/listings/<%= listings[0]._id %>/review/<%= review._id %>/edit"
+            class="reviewedit"
+            ><button class="btn btn-sm btn-dark ms-3 mb-2">Edit</button></a
+          >
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

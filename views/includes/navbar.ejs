@@ -1,0 +1,144 @@
+<!-- main nav bar -->
+<nav>
+  <div class="main-container">
+    <div class="logo">
+      <a href="/listings" style="opacity: 1"
+        ><i class="fa-regular fa-compass"></i>
+        <p>Airside</p></a
+      >
+    </div>
+
+    <div class="container-links">
+      <div class="links">
+        <a href="/listings">Explore</a>
+      </div>
+      <div class="search-box">
+        <form
+          novalidate
+          class="needs-validation"
+          method="get"
+          action="/listings/search"
+        >
+          <input type="text" id="search" name="search" required />
+          <button class="searchBtn btn btn-sm btn-secondary mb-1">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="option-nav">
+      <a href="/listings/new">AirSide Your Home</a>
+      <div class="user-icon-div user-opt">
+        <i class="fa-solid fa-bars" style="font-size: 1rem"></i>
+        <i style="font-size: 1.5rem" class="fa-regular fa-circle-user"></i>
+      </div>
+    </div>
+
+    <div class="shorting-nav">
+      <i class="fa-solid fa-bars menuOption" style="cursor: pointer"></i>
+      <i
+        style="font-size: 1.5rem; cursor: pointer"
+        class="user-opt menubar-icon fa-regular fa-circle-user"
+      ></i>
+    </div>
+  </div>
+</nav>
+
+<!-- menubar options -->
+<div class="menubar">
+  <div class="tax">
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Display total after taxes</label
+      >
+    </div>
+  </div>
+  <a href="/listings"
+    ><i style="padding-right: 1.15rem" class="menubar-icon fa-solid fa-list-ul"></i
+    >Explore</a
+  >
+
+  <a href="/listings/new"
+    ><i style="padding-right: 1.25rem" class="menubar-icon fa-solid fa-plus"></i
+    >AirSide Your Home</a
+  >
+
+  <div class="menubar-search">
+    <form
+      novalidate
+      class="needs-validation"
+      method="get"
+      action="/listings/search"
+    >
+      <input type="text" id="search" name="search" required />
+      <button class="searchBtn btn btn-sm btn-secondary mb-1">Search</button>
+    </form>
+  </div>
+</div>
+
+<!-- login, signup and logout  logic -->
+<% if(!currUser){%>
+<div class="menu-user">
+  <a class="nav-link" href="/signup"
+    ><i class="fa-solid fa-user-plus"></i><b>SignUp</b></a
+  >
+  <a class="nav-link" href="/login"
+    ><i class="fa-solid fa-right-to-bracket" style="margin-right: 0.8rem"></i
+    ><b>Login</b></a
+  >
+</div>
+<%}%> <% if(currUser){%>
+<div class="menu-user">
+  <a href="/listings/<%= currUser._id %>/your/listed" class="see-yours nav-link"
+    ><i class="fa-solid fa-clipboard-list"></i>See yours</a
+  >
+  <div class="contain">
+    <div class="line"></div>
+  </div>
+  <a class="nav-link" href="/logout"
+    ><i class="fa-solid fa-right-from-bracket"></i><b>LogOut</b></a
+  >
+</div>
+<%}%>
+
+<script>
+  // user menu animation
+
+  let users = document.querySelectorAll(".user-opt");
+  for (user of users) {
+    user.addEventListener("click", () => {
+      let menuuser = document.querySelector(".menu-user");
+      menuuser.classList.toggle("show-user");
+    });
+  }
+
+  // triming the search value when search
+
+  let searchInps = document.querySelectorAll("#search");
+  let searchBtns = document.querySelectorAll(".searchBtn");
+
+  for (searchBtn of searchBtns) {
+    searchBtn.addEventListener("click", () => {
+      for (searchInp of searchInps) {
+        let searchValue = searchInp.value;
+        searchValue = searchValue.trim();
+        searchInp.value = searchValue;
+      }
+    });
+  }
+
+  // same for menu option animation
+
+  let menuOption = document.querySelector(".menuOption");
+  menuOption.addEventListener("click", () => {
+    let menubar = document.querySelector(".menubar");
+    menubar.classList.toggle("show");
+  });
+</script>
