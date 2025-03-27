@@ -513,6 +513,11 @@ input[type="range"] {
   background-color: #000000;
 }
 
+.container-reviews-count{
+  margin-bottom: 0.35rem;
+  margin-left: 0.5rem;
+}
+
 .rating {
   position: relative;
   bottom: 0.1rem;
