@@ -332,25 +332,45 @@ nav {
 }
 
 /* password fields */
-.fa-eye,
-.fa-eye-slash {
-  font-size: 1rem;
-  position: relative;
-  left: 96%;
-  bottom: 2rem;
-}
 
-.eye {
-  font-size: 1rem;
-  position: relative;
-  left: 83.4%;
-  bottom: 2.5rem;
+.opt {
+  font-size: 0.8rem !important;
+  width: 6rem;
+  height: 2.5rem;
 }
 
 .random {
   font-size: 0.8rem !important;
   width: 5rem;
   height: 2.5rem;
+}
+
+@media (max-width: 600px) {
+  .opt {
+    font-size: 0.6rem !important;
+    width: 4.5rem;
+    height: 1.75rem;
+  }
+  
+  .random {
+    font-size: 0.6rem !important;
+    width: 4.5rem;
+    height: 1.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .opt {
+    font-size: 0.4rem !important;
+    width: 3.5rem;
+    height: 1.3rem;
+  }
+  
+  .random {
+    font-size: 0.4rem !important;
+    width: 3.5rem;
+    height: 1.3rem;
+  }
 }
 
 /* footer */
@@ -566,7 +586,7 @@ input[type="range"] {
   margin-right: 3rem;
 }
 
-.filter-opt a{
+.filter-opt a {
   text-decoration: none;
   color: #000000;
 }
@@ -650,7 +670,7 @@ input[type="range"] {
     padding-left: 0.3rem;
   }
 
-  .tax label{
+  .tax label {
     font-size: 1rem !important;
   }
 

@@ -5,10 +5,12 @@ let opt = document.querySelector(".opt");
 opt.addEventListener("click", () => {
   if (passfield.type === "password") {
     passfield.type = "text";
-    opt.classList.replace("fa-eye", "fa-eye-slash");
+    opt.innerText = "Hide pass"
+    opt.classList.replace("eye", "eye-slash");
   } else {
     passfield.type = "password";
-    opt.classList.replace("fa-eye-slash", "fa-eye");
+    opt.innerText = "See pass"
+    opt.classList.replace("eye-slash", "eye");
   }
 });
 
