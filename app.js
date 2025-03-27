@@ -21,8 +21,7 @@ const listingRoute = require("./routes/listing.js");
 const reviewRoute = require("./routes/review.js");
 const userRoute = require("./routes/user.js");
 
-  const dbUrl = process.env.ATLASDB_URL;
-  ;
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then((res) => {
