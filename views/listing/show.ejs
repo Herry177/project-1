@@ -12,7 +12,7 @@
   <!-- listing detail -->
 
   <div class="card col-10 offset-1 col-lg-6 offset-lg-3 show-card listing-card">
-    <div class="img-container">
+    <div class="img-container" id="img-container">
       <% for(image of listing.image) {%>
         <img
       src="<%= image.url %>"
@@ -50,22 +50,22 @@
     </div>
   </div>
 <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
-  <div class="btns">
+  <div style="padding-left: 0rem !important;" class="btns">
     <a
-      class="btn btn-dark edit-btn col-1 offset-3"
+      class="btn-show-edit btn btn-dark edit-btn col-1 offset-lg-3 offset-1"
       href="/listings/<%= listing._id %>/edit"
       >Edit</a
     >
 
     <form method="post" action="/listings/<%= listing._id %>?_method=Delete">
-      <button style="width: 6rem" class="btn btn-dark offset-5">Delete</button>
+      <button class="btn-show-delete btn btn-dark offset-5">Delete</button>
     </form>
   </div>
   <%}%>
 
   <!-- ratings and reviews section -->
 
-  <div class="col-10 offset-1 col-lg-6 offset-lg-3 mb-3">
+  <div style="padding: 0;" class="col-10 offset-1 col-lg-6 offset-lg-3 mb-3">
     <hr />
     <% if(currUser) {%>
     <form method="post" novalidate class="needs-validation" action="/listings/<%= listing._id %>/review"> 
@@ -98,7 +98,7 @@
         ></textarea>
         <div class="invalid-feedback">Please add comment for review.</div>
       </div>
-      <button class="btn btn-outline-dark">Submit</button>
+      <button class="btn-show-submit btn btn-outline-dark">Submit</button>
     </form>
 
     <hr />
