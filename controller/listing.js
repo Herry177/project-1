@@ -203,3 +203,15 @@ module.exports.category = async (req, res, next) => {
   req.flash("error", "Any listing not matches with this category!");
   res.redirect("/listings");
 }
+
+//privacy
+
+module.exports.privacyPolicy = async(req, res, next) => {
+  res.render("privacy/privacy.ejs")
+}
+
+//terms
+
+module.exports.terms = async(req, res, next) => {
+  res.render("privacy/terms.ejs")
+}

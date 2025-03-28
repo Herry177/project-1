@@ -11,6 +11,12 @@ const upload = multer({ storage });
 //search route
 router.get("/search", listingController.search)
 
+//privecy policy
+router.get("/privacy", listingController.privacyPolicy);
+
+//privecy policy
+router.get("/terms", listingController.terms);
+
 router
   .route("/")
   //index or home route
@@ -60,3 +66,4 @@ router.get(
 router.get("/category/:name", listingController.category)
 
 module.exports = router;
+
