@@ -20,3 +20,19 @@
     );
   });
 });
+
+//tax btn logic for both index and nzv
+
+let taxSwitches = document.querySelectorAll(".taxbtns");
+for (taxSwitch of taxSwitches){
+  taxSwitch.addEventListener("click", () => {
+    let taxInfos = document.querySelectorAll(".tax-info");
+    for (info of taxInfos) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+}

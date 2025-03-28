@@ -83,15 +83,15 @@
  
    <div class="tax-toggle">
      <div class="form-check-reverse form-switch">
-       <input style="cursor: pointer;"
-         class="form-check-input taxbtns"
-         type="checkbox"
-         role="switch"
-         id="flexSwitchCheckDefault"
-       />
-       <label class="form-check-label" for="flexSwitchCheckDefault"
-         >Display total after taxes</label
-       >
+      <input
+        class="form-check-input taxbtns"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault1"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault1"
+        >Display total after taxes</label
+      >
      </div>
    </div>
  </div>
@@ -117,19 +117,3 @@
    </a>
    <% } %>
  </div>
- 
- <script>
- 
-   let taxSwitch = document.querySelector(".taxbtns");
-   taxSwitch.addEventListener("click", () => {
-     let taxInfos = document.querySelectorAll(".tax-info");
-     for (info of taxInfos) {
-       if (info.style.display != "inline") {
-         info.style.display = "inline";
-       } else {
-         info.style.display = "none";
-       }
-     }
-   });
- 
- </script>
