@@ -1,3 +1,8 @@
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: "Plus Jakarta Sans", serif !important;
   display: flex;
@@ -739,6 +744,17 @@ input[type="range"] {
   .filters {
     width: 90%;
   }
+
+  .trip-plan-label{
+    font-size: 1rem !important;
+    margin-right: 100%;
+    white-space: nowrap;
+  }
+
+  .calender{
+    font-size: 0.9rem !important;
+  }
+
 }
 
 @media (max-width: 600px) {
@@ -823,6 +839,16 @@ input[type="range"] {
   .img-container img {
     height: 18rem !important;
   }
+
+  .trip-plan-label{
+    font-size: 0.8rem !important;
+    margin-right: 100%;
+    white-space: nowrap;
+  }
+
+  .calender{
+    font-size: 0.7rem !important;
+  }
 }
 
 @media (max-width: 360px) {
@@ -876,4 +902,81 @@ input[type="range"] {
   .img-container img {
     height: 17rem !important;
   }
+
+  .trip-plan-label{
+    font-size: 0.7rem !important;
+    margin-right: 100%;
+    white-space: nowrap;
+  }
+
+  .calender{
+    font-size: 0.6rem !important;
+  }
+}
+
+/* calender */
+.trip-plan-label{
+  font-size: 1rem !important;
+  margin-right: 100%;
+  white-space: nowrap;
+}
+
+.dates-cont{
+  padding: 0;
+  display: flex;
+  justify-content:space-between;
+  text-align: center;
+}
+
+#pricePerNight{
+  margin-top: 0.5rem;
+  text-align: center;
+  width: 100%;
+  min-height: 11rem;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.price-card{
+  padding: 1.25rem;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+}
+
+.dates-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.check-out{
+  border-left: 1px solid black;
+  padding: 0.25rem 0 0.25rem 0;
+}
+
+.check-out p{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.check-in{
+  padding: 0.25rem 0 0.25rem 0;
+}
+
+.check-in p{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.price{
+  display: flex;
+  justify-content: left;
+  margin-bottom: 0.5rem;
 }

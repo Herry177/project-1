@@ -60,8 +60,55 @@
     <form method="post" action="/listings/<%= listing._id %>?_method=Delete">
       <button class="btn-show-delete btn btn-dark offset-5">Delete</button>
     </form>
+   
   </div>
+  
   <%}%>
+
+  <div style="padding: 0;" class="col-10 offset-1 col-lg-6 offset-lg-3"> 
+    <hr>
+    <h5 class="mb-3">Enter Trip Schedual</h5>
+      <div class="dates-cont">
+        <div>
+          <label class="form-label trip-plan-label" for="datepicker">Checkin Date</label>
+          <input style="width: 80%;"
+            class="calender form-control"
+            type="text"
+            id="checkin"
+            placeholder="Select a date"
+            required
+          />
+        </div>
+        <div>
+          <label class="form-label trip-plan-label" for="datepicker1"
+            >Checkout Date</label
+          >
+          <input style="width: 80%;"
+            class="calender form-control"
+            type="text"
+            id="checkout"
+            placeholder="Select a date"
+            required
+            disabled
+          />
+        </div>
+      </div>
+      <button class="btn btn-sm btn-outline-danger mt-4 mb-2 trip-plan-btn">Submit</button>
+  
+      <div id="pricePerNight" style="display: none;">
+        <div class="price-card">
+          <div class="price"></div>
+          <div class="dates-container">
+            <div class="check-in">Checkin Date <p class="checkin-date"></p></div>
+            <div class="check-out">Checkout Date <p class="checkout-date"></p></div>
+          </div>        
+            <button style="margin-top: 2.5rem; width: 100%;" class="btn btn-sm btn-danger mb-2">Reserve</button>
+            <p style="margin: 0;">You won't be charged yet</p>
+        </div>
+
+      </div>
+  </div>
+
 
   <!-- ratings and reviews section -->
 
@@ -192,3 +239,77 @@
 
 </div>
 <script src="/js/map.js"></script>
+<script>
+let btn = document.querySelector(".trip-plan-btn");
+let inps = document.querySelectorAll(".calender");
+btn.addEventListener("click", (event) => {
+  event.preventDefault();
+  for (inp of inps){
+    console.log(inp.value);
+  }
+})
+</script>
+<script>
+
+const checkoutInput = document.getElementById("checkout");
+const checkinInput = document.getElementById("checkin");
+
+const checkout = flatpickr("#checkout", {
+  enableTime: true,
+  dateFormat: "Y-m-d",
+  minDate: "today",
+  clickOpens: false,
+  disableMobile: true
+});
+
+const checkin = flatpickr("#checkin", {
+  enableTime: true,
+  dateFormat: "Y-m-d",
+  minDate: "today",
+  disableMobile: true,
+  onChange: function(selectedDates, dateStr, instance) {
+    if (selectedDates[0]) {
+      checkoutInput.removeAttribute("disabled");
+      checkout.set("minDate", selectedDates[0].fp_incr(1));
+      checkout.set("clickOpens", true);
+      checkout.clear();
+    }
+  }
+});
+
+const tripBtn = document.querySelector('.trip-plan-btn')
+tripBtn.addEventListener("click", () => {
+  if(checkoutInput.value){
+    const checkinDate = new Date(checkinInput.value);
+    const checkoutDate = new Date(checkoutInput.value);
+    let datedisplayIn = document.querySelector(".checkin-date")
+    let datedisplayOut = document.querySelector(".checkout-date")
+
+    const diffTime = checkoutDate - checkinDate;
+    const nights = diffTime / (1000 * 60 * 60 * 24);
+
+    let platformFees;
+    if(nights > 5){
+      platformFees = 1500
+    } else if(nights > 10) {
+      platformFees = 2500
+    } else if(nights > 15) {
+      platformFees = 3000
+    } else {
+      platformFees = 1000
+    }
+
+    let pricePerNightCon = document.querySelector("#pricePerNight");
+    pricePerNightCon.style.display = "flex";
+
+    datedisplayIn.innerText = checkinInput.value
+    datedisplayOut.innerText = checkoutInput.value
+
+    let price = document.querySelector(".price") 
+    price.innerHTML = `<b style="font-size: 1.25rem">${nights*listing.price+platformFees*(nights*listing.price+platformFees*18)/100}&#8377</b>&nbsp;<span style="font-size: 0.8rem; opacity: 0.7; display: flex; align-items: end; padding-bottom: 0.18rem;">&nbsp;For ${nights} night.</span>`
+    
+  }
+})
+
+</script>
+
