@@ -290,13 +290,13 @@ tripBtn.addEventListener("click", () => {
 
     let platformFees;
     if(nights > 5){
-      platformFees = 1500
+      platformFees = 2000
     } else if(nights > 10) {
-      platformFees = 2500
-    } else if(nights > 15) {
       platformFees = 3000
+    } else if(nights > 15) {
+      platformFees = 3500
     } else {
-      platformFees = 1000
+      platformFees = 1500
     }
 
     let pricePerNightCon = document.querySelector("#pricePerNight");
@@ -306,7 +306,11 @@ tripBtn.addEventListener("click", () => {
     datedisplayOut.innerText = checkoutInput.value
 
     let price = document.querySelector(".price") 
-    price.innerHTML = `<b style="font-size: 1.25rem">${nights*listing.price+platformFees*(nights*listing.price+platformFees*18)/100}&#8377</b>&nbsp;<span style="font-size: 0.8rem; opacity: 0.7; display: flex; align-items: end; padding-bottom: 0.18rem;">&nbsp;For ${nights} night.</span>`
+    console.log(nights*listing.price)
+    console.log(platformFees)
+    console.log(nights*listing.price)
+    console.log((((nights*listing.price)+platformFees)*18)/100)
+    price.innerHTML = `<b style="font-size: 1.25rem">${(nights*listing.price)+platformFees+((((nights*listing.price)+platformFees)*18)/100)}&#8377</b>&nbsp;<span style="font-size: 0.8rem; opacity: 0.7; display: flex; align-items: end; padding-bottom: 0.18rem;">&nbsp;For ${nights} night.</span>`
     
   }
 })
