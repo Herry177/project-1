@@ -83,6 +83,10 @@ module.exports.renderNewForm = (req, res) => {
 //create route  //adding or save listings
 
 module.exports.createListing = async (req, res, next) => {
+  if (!req.files || req.files.length === 0) {
+    req.flash("error", "Please upload at least one image");
+    return res.redirect("/listings/new")
+  }
   let respones = await geocodingClient.forwardGeocode({
     query: `${req.body.listing.location} ${req.body.listing.country}`,
     limit: 1
@@ -99,7 +103,6 @@ module.exports.createListing = async (req, res, next) => {
     newListing.image.push({ url, filename });
   }
   let savedListing = await newListing.save();
-  console.log(savedListing)
   req.flash("success", "New listing created!");
   res.redirect(`/listings`);
 };
@@ -125,7 +128,6 @@ module.exports.editListing = async (req, res) => {
 
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
-  console.log(req.body);
   let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
   if (typeof req.files !== "undefined") {
@@ -153,7 +155,6 @@ module.exports.deleteListing = async (req, res) => {
   let { id } = req.params;
   console.log(id);
   let deletedListing = await Listing.findByIdAndDelete(id);
-  console.log(deletedListing);
   req.flash("success", "Listing deleted!");
   res.redirect("/listings");
 };
