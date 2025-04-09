@@ -3,112 +3,154 @@
   <div class="col-8 offset-2">
     <h3 class="mb-2">Create a new listing</h3>
 
-    <form
-      method="post"
-      action="/listings"
-      novalidate
-      class="needs-validation"
-      enctype="multipart/form-data"
-    >
+    <div id="form-skeleton-container">
       <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input
-          required
-          type="text"
-          name="listing[title]"
-          placeholder="Enter catchy title"
-          id="title"
-          class="form-control"
-        />
-        <div class="valid-feedback">Nice title!</div>
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
       </div>
 
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea
-          required
-          name="listing[description]"
-          id="description"
-          class="form-control"
-        ></textarea>
-        <div class="invalid-feedback">Enter a short description</div>
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100" style="height: 100px"></div>
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Upload Listing Image</label>
-        <input
-          type="file"
-          name="listing[image][]"
-          placeholder="Enter image link/url"
-          id="image"
-          class="form-control"
-          multiple
-          accept="image/*"
-        />
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
       </div>
 
       <div class="row">
         <div class="mb-3 col-md-4">
-          <label for="price" class="form-label">Price</label>
-          <input
-            required
-            name="listing[price]"
-            placeholder="1200"
-            min="0"
-            id="price"
-            class="form-control"
-          />
-          <div class="invalid-feedback">Price should be valid</div>
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
         </div>
-
         <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">Country</label>
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="skeleton skeleton-button mt-3 w-25"></div>
+    </div>
+
+    <div id="form-main-container2" style="display: none">
+      <form
+        method="post"
+        action="/listings"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
           <input
             required
             type="text"
-            name="listing[country]"
-            placeholder="India"
-            id="country"
+            name="listing[title]"
+            placeholder="Enter catchy title"
+            id="title"
             class="form-control"
           />
-          <div class="invalid-feedback">Country name should be valid</div>
+          <div class="valid-feedback">Nice title!</div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
-        <input
-          required
-          type="text"
-          name="listing[location]"
-          placeholder="Jaipur, Rajesthan"
-          id="location"
-          class="form-control"
-        />
-        <div class="invalid-feedback">Location should be valid</div>
-      </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            required
+            name="listing[description]"
+            id="description"
+            class="form-control"
+          ></textarea>
+          <div class="invalid-feedback">Enter a short description</div>
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label" for="category">Category</label>
-        <select class="form-select" name="listing[category]" id="category">
-          <option value="Trending">Trending</option>
-          <option value="Amazing pools">Amazing pools</option>
-          <option value="Beach front">Beach front</option>
-          <option value="Mountain cities">Mountain cities</option>
-          <option value="Amazing views">Amazing views</option>
-          <option value="Farms">Farms</option>
-          <option value="Rooms" selected>Rooms</option>
-          <option value="Camping">Camping</option>
-          <option value="Castle">Castle</option>
-          <option value="Arctic">Arctic</option>
-          <option value="Mountains">Mountains</option>
-          <option value="Boats">Boats</option>
-        </select>
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Listing Image</label>
+          <input
+            type="file"
+            name="listing[image][]"
+            placeholder="Enter image link/url"
+            id="image"
+            class="form-control"
+            multiple
+            accept="image/*"
+          />
+        </div>
 
-        <div class="invalid-feedback">category should be valid</div>
-      </div>
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input
+              required
+              name="listing[price]"
+              placeholder="1200"
+              min="0"
+              id="price"
+              class="form-control"
+            />
+            <div class="invalid-feedback">Price should be valid</div>
+          </div>
 
-      <button class="btn btn-dark add-btn mt-3">add</button>
-    </form>
+          <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input
+              required
+              type="text"
+              name="listing[country]"
+              placeholder="India"
+              id="country"
+              class="form-control"
+            />
+            <div class="invalid-feedback">Country name should be valid</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input
+            required
+            type="text"
+            name="listing[location]"
+            placeholder="Jaipur, Rajesthan"
+            id="location"
+            class="form-control"
+          />
+          <div class="invalid-feedback">Location should be valid</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="category">Category</label>
+          <select class="form-select" name="listing[category]" id="category">
+            <option value="Trending">Trending</option>
+            <option value="Amazing pools">Amazing pools</option>
+            <option value="Beach front">Beach front</option>
+            <option value="Mountain cities">Mountain cities</option>
+            <option value="Amazing views">Amazing views</option>
+            <option value="Farms">Farms</option>
+            <option value="Rooms" selected>Rooms</option>
+            <option value="Camping">Camping</option>
+            <option value="Castle">Castle</option>
+            <option value="Arctic">Arctic</option>
+            <option value="Mountains">Mountains</option>
+            <option value="Boats">Boats</option>
+          </select>
+
+          <div class="invalid-feedback">category should be valid</div>
+        </div>
+
+        <button class="btn btn-dark add-btn mt-3">add</button>
+      </form>
+    </div>
   </div>
 </div>

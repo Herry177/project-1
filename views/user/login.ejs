@@ -6,6 +6,25 @@
     <b><span class="text-danger" id="app"></span></b>
   </h2>
   <div class="col-6 offset-3">
+
+    <div id="skeleton-login">
+    <form novalidate class="needs-validation">
+      <div class="mt-3 mb-4">
+        <div class="skeleton-login-label"></div>
+        <div class="skeleton-login-input"></div>
+      </div>
+    
+      <div class="mb-4">
+        <div class="skeleton-login-label"></div>
+        <div class="skeleton-login-input"></div>
+        <div class="skeleton-login-btn mt-2"></div>
+      </div>
+    
+      <div class="skeleton-login-submit mt-2"></div>
+    </form>
+    </div>
+
+    <div id="login-contains" style="display: none;">
     <form method="post" action="/login" novalidate class="needs-validation">
       <div class="mt-3 mb-4">
         <label class="form-label" for="username">Username</label>
@@ -32,5 +51,6 @@
 
       <button class="btn btn-outline-success">LogIn</button>
     </form>
+    </div>
   </div>
 </div>

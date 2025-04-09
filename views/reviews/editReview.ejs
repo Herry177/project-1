@@ -2,6 +2,30 @@
 
 <div class="col-10 offset-1 col-lg-8 offset-lg-3 mb-3">
   <h1>Edit Your Listing Review<%=  %></h1>
+
+  <div id="skeleton-review-edit">
+  <form class="needs-validation">
+    <div class="mt-3 mb-1">
+      <div class="skeleton-review-label"></div>
+      <div class="skeleton-star-wrapper">
+        <% for (let i = 0; i < 5; i++) { %>
+          <div class="skeleton-star"></div>
+        <% } %>
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <div class="skeleton-review-label"></div>
+      <div class="skeleton-textarea-line"></div>
+      <div class="skeleton-textarea-line"></div>
+      <div class="skeleton-textarea-line short"></div>
+    </div>
+  
+    <div class="skeleton-review-btn"></div>
+  </form>
+  </div>
+
+  <div id="main-review-edit" style="display: none;">
   <form method="post" class="needs-validation" novalidate action="/listings/<%= listing._id %>/review/<%= review._id %>">
     <div class="mt-3 mb-1">
       <label class="form-label" for="range">Rating</label>
@@ -34,4 +58,5 @@
     </div>
     <button class="btn btn-outline-dark">Submit</button>
   </form>
+  </div>
 </div>

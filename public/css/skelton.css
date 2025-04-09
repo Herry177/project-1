@@ -1,0 +1,406 @@
+/* Skeleton base styles */
+.skeleton-card {
+    background-color: white;
+    border: none !important;
+  }
+  
+  .skeleton-img {
+    width: 100%;
+    height: 20rem;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: 1rem !important;
+  }
+  
+  .skeleton-line {
+    height: 14px;
+    margin: 12px 0;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+    border-radius: 4px;
+  }
+  
+  .skeleton-line.title {
+    width: 80%;
+  }
+  
+  .skeleton-line.price {
+    width: 50%;
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+/* Skeleton base */
+.skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Specific Skeleton Elements (matching your real styles) */
+.skeleton-title {
+  height: 2.5rem;
+}
+
+.skeleton-img-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-img {
+  height: 40vh;
+  width: 100%;
+}
+
+.skeleton-text {
+  height: 1.2rem;
+}
+
+.skeleton-subtitle {
+  height: 1.8rem;
+}
+
+.skeleton-input {
+  height: 2.2rem;
+}
+
+.skeleton-button {
+  height: 2.5rem;
+}
+
+.skeleton-box {
+  height: 3rem;
+}
+
+.skeleton-map {
+  height: 250px;
+}
+
+/* Shared skeleton base */
+.form-skeleton div {
+  background-color: #e2e2e2;
+  border-radius: 5px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Title input */
+.skeleton-label-title {
+  width: 20%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-input-title {
+  height: 38px;
+  width: 100%;
+}
+
+/* Description */
+.skeleton-label-desc {
+  width: 25%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-textarea-desc {
+  height: 120px;
+  width: 100%;
+}
+
+/* Image upload */
+.skeleton-label-img {
+  width: 30%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-input-img {
+  height: 38px;
+  width: 100%;
+}
+
+/* Price */
+.skeleton-label-price {
+  width: 40%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-input-price {
+  height: 38px;
+  width: 100%;
+}
+
+/* Country */
+.skeleton-label-country {
+  width: 30%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-input-country {
+  height: 38px;
+  width: 100%;
+}
+
+/* Location */
+.skeleton-label-location {
+  width: 30%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-input-location {
+  height: 38px;
+  width: 100%;
+}
+
+/* Category */
+.skeleton-label-category {
+  width: 30%;
+  height: 16px;
+  margin-bottom: 5px;
+}
+.skeleton-select-category {
+  height: 38px;
+  width: 100%;
+}
+
+/* Button */
+.skeleton-button-add {
+  height: 20px !important;
+  width: 50px !important;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #e2e2e2;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e2e2e2;
+  }
+}
+
+.skeleton-privacy-head {
+  height: 32px;
+  width: 200px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  margin-bottom: 10px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-privacy-date {
+  height: 16px;
+  width: 180px;
+  border-radius: 4px;
+  background: #e0e0e0;
+  margin-bottom: 24px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-privacy-heading {
+  height: 24px;
+  width: 260px;
+  border-radius: 6px;
+  background: #e0e0e0;
+  margin-bottom: 14px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-privacy-list {
+  height: 14px;
+  width: 90%;
+  border-radius: 4px;
+  background: #e0e0e0;
+  margin-bottom: 8px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-privacy-list.short {
+  width: 70%;
+}
+
+.skeleton-privacy-para {
+  height: 14px;
+  width: 95%;
+  border-radius: 4px;
+  background: #e0e0e0;
+  margin-bottom: 8px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-privacy-para.short {
+  width: 60%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f5f5f5;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+.skeleton-review-label {
+  height: 16px;
+  width: 100px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-star-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.skeleton-star {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-textarea-line {
+  height: 14px;
+  width: 100%;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-textarea-line.short {
+  width: 70%;
+}
+
+.skeleton-review-btn {
+  height: 36px;
+  width: 120px;
+  background: #cfcfcf;
+  border-radius: 8px;
+  margin-top: 12px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f5f5f5;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+.skeleton-login-label {
+  height: 16px;
+  width: 100px;
+  background: #d9d9d9;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  animation: skeleton-login-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-login-input {
+  height: 38px;
+  width: 100%;
+  background: #e3e3e3;
+  border-radius: 6px;
+  animation: skeleton-login-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-login-btn {
+  height: 36px;
+  width: 100px;
+  background: #d0d0d0;
+  border-radius: 6px;
+  animation: skeleton-login-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-login-submit {
+  height: 40px;
+  width: 120px;
+  background: #c8e6c9;
+  border-radius: 6px;
+  animation: skeleton-login-loading 1.2s infinite ease-in-out;
+}
+
+@keyframes skeleton-login-loading {
+  0% {
+    background-color: #e1e1e1;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e1e1e1;
+  }
+}
+.skeleton-signup-label {
+  height: 16px;
+  width: 110px;
+  background: #d8d8d8;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  animation: skeleton-signup-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-signup-input {
+  height: 38px;
+  width: 100%;
+  background: #e4e4e4;
+  border-radius: 6px;
+  animation: skeleton-signup-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-signup-btn {
+  height: 36px;
+  width: 90px;
+  background: #d1d1d1;
+  border-radius: 6px;
+  animation: skeleton-signup-loading 1.2s infinite ease-in-out;
+}
+
+.skeleton-signup-submit {
+  height: 42px;
+  width: 130px;
+  background: #c8e6c9;
+  border-radius: 6px;
+  animation: skeleton-signup-loading 1.2s infinite ease-in-out;
+}
+
+@keyframes skeleton-signup-loading {
+  0% {
+    background-color: #e2e2e2;
+  }
+  50% {
+    background-color: #f2f2f2;
+  }
+  100% {
+    background-color: #e2e2e2;
+  }
+}

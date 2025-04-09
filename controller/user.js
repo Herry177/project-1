@@ -10,10 +10,10 @@ module.exports.signupPostRoute = async (req, res) => {
     let { email, username, password } = req.body;
     if (password) {
       for (i = 0; i < commonPasswords.length; i++) {
-        if (password === commonPasswords[i]) {
+        if (password === commonPasswords[i] || password === username) {
           req.flash(
             "error",
-            "You used most common password please try different!"
+            "You used most common password or don't use username as a password!"
           );
           return res.redirect("/signup");
         }

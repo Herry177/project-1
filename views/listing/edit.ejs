@@ -3,6 +3,53 @@
   <div class="col-8 offset-2">
     <h3 class="mb-2">Edit&nbsp; your&nbsp; listing</h3>
 
+    <div id="form-skeleton-container">
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+    
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100" style="height: 100px;"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text mb-1" style="width: 250px;"></div>
+        <div class="skeleton-img" style="height: 150px; width: 250px; border-radius: 10px;"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+      </div>
+    
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+    
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+    
+      <div class="skeleton skeleton-button mt-3 w-25"></div>
+    </div>
+    
+
+    <div id="form-main-container2" style="display: none;">
     <form
       method="post"
       action="/listings/<%= listing._id %>?_method=put"
@@ -121,5 +168,6 @@
 
       <button class="btn btn-dark edit-btn mt-3">Edit</button>
     </form>
+    </div>
   </div>
 </div>
