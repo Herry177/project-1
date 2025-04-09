@@ -43,29 +43,29 @@ for (taxSwitch of taxSwitches){
     setTimeout(() => {
       document.getElementById("skeleton-container").style.display = "none";
       document.getElementById("listing-container").style.display = "block";
-    }, 2000); 
+    }, 1000); 
 
     setTimeout(() => {
       document.getElementById("skeleton-container2").style.display = "none";
       document.getElementById("main-container").style.display = "block";
-    }, 2000);
+    }, 1000);
 
     setTimeout(() => {
       document.getElementById("form-skeleton-container").style.display = "none";
       document.getElementById("form-main-container2").style.display = "block";
-    }, 2000);
+    }, 1000);
 
     setTimeout(() => {
       document.getElementById("skeleton-review-edit").style.display = "none";
       document.getElementById("main-review-edit").style.display = "block";
-    }, 2000);
+    }, 1000);
 
     setTimeout(() => {
       document.getElementById("skeleton-login").style.display = "none";
       document.getElementById("login-contains").style.display = "block";
-    }, 2000);
+    }, 1000);
     setTimeout(() => {
       document.getElementById("skeleton-signup").style.display = "none";
       document.getElementById("signup-contains").style.display = "block";
-    }, 2000);
+    }, 1000);
   });
