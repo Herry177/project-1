@@ -85,6 +85,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/", (req, res) => {res.redirect("/listings")});
 app.use("/listings", listingRoute);
 app.use("/listings/:id/review", reviewRoute);
 app.use("/", userRoute);
