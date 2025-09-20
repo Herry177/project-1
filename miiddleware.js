@@ -3,7 +3,6 @@ const Review = require("./modules/review.js");
 const { listingSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
-
 module.exports.isLoggedin = (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.redirectUrl = req.originalUrl;
@@ -16,6 +15,15 @@ module.exports.isLoggedin = (req, res, next) => {
 module.exports.saveredirectUrl = (req, res, next) => {
   if (req.session.redirectUrl) {
     res.locals.redirectUrl = req.session.redirectUrl;
+  }
+  next();
+};
+
+// --- NEW MIDDLEWARE ---
+module.exports.isVerified = (req, res, next) => {
+  if (req.isAuthenticated() && !req.user.isVerified) {
+    req.flash("error", "Please verify your email to access this page.");
+    return res.redirect("/verify");
   }
   next();
 };

@@ -1,0 +1,158 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3 mb-5">
+  <div class="col-8 offset-2">
+    <h3 class="mb-2">Edit&nbsp; your&nbsp; place</h3>
+
+    <!-- Skeleton Loader -->
+    <div id="form-skeleton-container">
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100" style="height: 100px;"></div>
+      </div>
+      <div class="mb-3">
+        <div class="skeleton skeleton-text mb-1" style="width: 250px;"></div>
+        <div class="skeleton-img" style="height: 150px; width: 250px; border-radius: 10px;"></div>
+      </div>
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+      </div>
+      <div class="skeleton skeleton-button mt-3 w-25"></div>
+    </div>
+
+    <!-- Main Form -->
+    <div id="form-main-container2" style="display: none;">
+      <form
+        method="post"
+        action="/places/<%= place._id %>?_method=put"
+        enctype="multipart/form-data"
+        novalidate
+        class="needs-validation"
+      >
+        <div class="mb-3">
+          <label for="place_name" class="form-label">Place Name</label>
+          <input
+            type="text"
+            name="place[place_name]"
+            id="place_name"
+            class="form-control"
+            placeholder="Enter place name"
+            value="<%= place.place_name %>"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            name="place[title]"
+            id="title"
+            class="form-control"
+            placeholder="Optional title"
+            value="<%= place.title %>"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            name="place[description]"
+            id="description"
+            class="form-control"
+            required
+          ><%= place.description %></textarea>
+        </div>
+
+        <div class="mb-3">
+          Original Image<br>
+          <img
+            style="height: 150px; width: 250px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.5);"
+            src="<%= place.image[0]?.url %>"
+            alt="Place_Image"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Choose New Image</label>
+          <input
+            type="file"
+            name="place[image][]"
+            id="image"
+            class="form-control"
+            multiple
+            accept="image/*"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="state" class="form-label">State</label>
+          <select name="place[state]" id="state" class="form-select" required>
+            <% states.forEach(state => { %>
+              <option value="<%= state._id %>" <%= place.state.equals(state._id) ? "selected" : "" %>>
+                <%= state.name %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="type" class="form-label">Type</label>
+          <select name="place[type]" id="type" class="form-select" required>
+            <option value="Tranding" <%= place.type === "Tranding" ? "selected" : "" %>>Tranding</option>
+            <option value="5-star" <%= place.type === "5-star" ? "selected" : "" %>>5-star</option>
+            <option value="Cultural" <%= place.type === "Cultural" ? "selected" : "" %>>Cultural</option>
+            <option value="Adventure" <%= place.type === "Adventure" ? "selected" : "" %>>Adventure</option>
+            <option value="Historical" <%= place.type === "Historical" ? "selected" : "" %>>Historical</option>
+            <option value="Religious" <%= place.type === "Religious" ? "selected" : "" %>>Religious</option>
+            <option value="Nature" <%= place.type === "Nature" ? "selected" : "" %>>Nature</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input
+            type="text"
+            name="place[location]"
+            id="location"
+            class="form-control"
+            placeholder="City or area"
+            value="<%= place.location %>"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <select name="listing[state]" id="state" class="form-select" required>
+                <option value="">Select a state</option>
+                <% for (let s of states) { %>
+                <option value="<%= s._id %>" 
+                    <%= place && place.state && place.state.equals(s._id) ? "selected" : "" %>>
+                    <%= s.name %>
+                </option>
+                <% } %>
+            </select>
+        <div class="invalid-feedback">Please select a state</div>
+        </div>
+
+        <button class="btn btn-dark add-btn mt-3">Update Place</button>
+      </form>
+    </div>
+  </div>
+</div>

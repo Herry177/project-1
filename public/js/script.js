@@ -69,3 +69,23 @@ for (taxSwitch of taxSwitches){
       document.getElementById("signup-contains").style.display = "block";
     }, 1000);
   });
+
+let Explore_title = document.querySelector(".Explore");
+let Startus_title = document.querySelector(".Startus");
+let Explore_opt = document.querySelector("#Explore");
+let Startus_opt = document.querySelector("#Startus");
+
+// Show Explore and hide Startus
+Explore_title.addEventListener("click", () => {
+  Startus_opt.classList.add("Startus-opt");
+  Startus_opt.classList.remove("margin-fix");
+  Explore_opt.classList.toggle("margin-fix");
+  
+});
+
+// Show Startus and hide Explore
+ Startus_title.addEventListener("click", () => {
+  Explore_opt.classList.add("Explore-opt");
+  Explore_opt.classList.remove("margin-fix");
+  Startus_opt.classList.toggle("margin-fix");
+});

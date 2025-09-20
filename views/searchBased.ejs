@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/searchBased.css">
+</head>
+<body >
+    <nav>
+        <div class="nav-container1">
+            <div class="logo-group">
+                <a href="/" class="logo-link">
+                    <i class="fa-regular fa-compass"></i>
+                </a>
+                <a href="/" class="logo-text">Trippeo</a>
+            </div>
+            <div class="nav-links">
+                <a href="/listings">Hotels</a>
+                <a href="/shops">Local shops</a>
+                <a href="/places">Tourist Places</a>
+            </div>
+        </div>
+
+        <div class="nav-container2">
+            <a href="#" id="user-menu-toggle">
+                <i class="fa-regular fa-circle-user"></i>
+            </a>
+            <div class="user-dropdown-menu">
+                <% if (!currUser) { %>
+                <div class="user-menu-items">
+                    <a class="nav-link" href="/signup">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <b>SignUp</b>
+                    </a>
+                    <a class="nav-link" href="/login">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <b>Login</b>
+                    </a>
+                </div>
+                <% } else { %>
+                <div class="user-menu-items">
+                    <a href="/listings/<%= currUser._id %>/your/listed" class="nav-link">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        See Your Listings
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a href="/shops/<%= currUser._id %>/your" class="nav-link">
+                        <i class="fa-solid fa-list-ol"></i>
+                        See Your Shops
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a href="/places/<%= currUser._id %>/your" class="nav-link">
+                        <i class="fa-solid fa-list-check"></i>
+                        See Added Places
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a class="nav-link" href="/logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <b>Log Out</b>
+                    </a>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- Main Header -->
+        <h1 class="main-headline">
+            Discover the Best of <%= statename %>
+        </h1>
+
+        <!-- Trending Listings Section -->
+        <% if (trendingListings && trendingListings.length > 0) { %>
+            <div class="mb-12">
+                <h2 class="section-headline">Trending Hotels & Listings</h2>
+                <div class="flex overflow-x-hidden">
+                    <!-- Changed class to scroll-container-rtl for right-to-left animation -->
+                    <div class="scroll-container scroll-container-rtl flex space-x-6 pb-4">
+                        <% trendingListings.forEach(listing => { %>
+                            <div class="card-wrapper w-96 flex-shrink-0">
+                                <a href="/listings/<%= listing._id %>" class="listing-link">
+                                    <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
+                                        <div class="relative w-full h-48">
+                                            <img src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= listing.title %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= listing.title %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= listing.price ? '₹' + listing.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
+                                        </div>
+                                        <div class="listing-overlay absolute inset-0 rounded-xl">
+                                            <p class="overlay-text">See Details</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                        <!-- Duplicate content for seamless looping -->
+                        <% trendingListings.forEach(listing => { %>
+                            <div class="card-wrapper w-96 flex-shrink-0">
+                                <a href="/listings/<%= listing._id %>" class="listing-link">
+                                    <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
+                                        <div class="relative w-full h-48">
+                                            <img src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= listing.title %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= listing.title %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= listing.price ? '₹' + listing.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
+                                        </div>
+                                        <div class="listing-overlay absolute inset-0 rounded-xl">
+                                            <p class="overlay-text">See Details</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+        <!-- Trending Places Section -->
+        <% if (trendingPlaces && trendingPlaces.length > 0) { %>
+            <div>
+                <h2 class="section-headline">Trending Tourist Places</h2>
+                <div class="flex overflow-x-hidden">
+                    <div class="scroll-container scroll-container-ltr flex space-x-6 pb-4">
+                        <% trendingPlaces.forEach(place => { %>
+                            <div class="card-wrapper w-96 flex-shrink-0">
+                                <a href="/places/<%= place._id %>" class="listing-link">
+                                    <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
+                                        <div class="relative w-full h-48">
+                                            <img src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= place.place_name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= place.place_name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= place.type %></p>
+                                        </div>
+                                        <div class="listing-overlay absolute inset-0 rounded-xl">
+                                            <p class="overlay-text">See Details</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                        <!-- Duplicate content for seamless looping -->
+                        <% trendingPlaces.forEach(place => { %>
+                            <div class="card-wrapper w-96 flex-shrink-0">
+                                <a href="/places/<%= place._id %>" class="listing-link">
+                                    <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
+                                        <div class="relative w-full h-48">
+                                            <img src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= place.place_name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= place.place_name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= place.type %></p>
+                                        </div>
+                                        <div class="listing-overlay absolute inset-0 rounded-xl">
+                                            <p class="overlay-text">See Details</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        
+        <!-- Trending Shops Section -->
+        <% if (trendingShops && trendingShops.length > 0) { %>
+            <div class="mb-12">
+                <h2 class="section-headline">Trending Shops</h2>
+                <div class="flex overflow-x-hidden">
+                    <div class="scroll-container scroll-container-rtl flex space-x-6 pb-4">
+                        <% trendingShops.forEach(shop => { %>
+                            <div class="card-wrapper w-96 flex-shrink-0">
+                                <a href="/shops/<%= shop._id %>" class="listing-link">
+                                    <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
+                                        <div class="relative w-full h-48">
+                                            <img src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= shop.name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= shop.name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= shop.category %> Shop</p>
+                                        </div>
+                                        <div class="listing-overlay absolute inset-0 rounded-xl">
+                                            <p class="overlay-text">See Details</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                        <!-- Duplicate content for seamless looping -->
+                        <% trendingShops.forEach(shop => { %>
+                            <div class="card-wrapper w-96 flex-shrink-0">
+                                <a href="/shops/<%= shop._id %>" class="listing-link">
+                                    <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
+                                        <div class="relative w-full h-48">
+                                            <img src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= shop.name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= shop.name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= shop.category %> Shop</p>
+                                        </div>
+                                        <div class="listing-overlay absolute inset-0 rounded-xl">
+                                            <p class="overlay-text">See Details</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+        <!-- No Results Found Message -->
+        <% if (trendingListings.length === 0 && trendingShops.length === 0 && trendingPlaces.length === 0) { %>
+            <div class="no-results">
+                <p>No trending or 5-star listings, shops, or places found for <%= statename %>.</p>
+                <p class="mt-2">Please try searching for a different state.</p>
+            </div>
+        <% } %>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userMenuToggle = document.getElementById('user-menu-toggle');
+            const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+
+            if (userMenuToggle && userDropdownMenu) {
+                userMenuToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent the body click from closing it immediately
+                    userDropdownMenu.classList.toggle('active');
+                });
+
+                document.body.addEventListener('click', (e) => {
+                    if (!userDropdownMenu.contains(e.target) && !userMenuToggle.contains(e.target)) {
+                        userDropdownMenu.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 const joi = require("joi");
 const review = require("./modules/review");
+const state = require("./modules/state");
 
 module.exports.listingSchema = joi.object({
   listing: joi
@@ -9,7 +10,8 @@ module.exports.listingSchema = joi.object({
       price: joi.number().required().min(0),
       location: joi.string().required(),
       country: joi.string().required(),
-      category: joi.string().required()
+      category: joi.string().required(),
+      state: joi.string()
     })
     .required(),
 });

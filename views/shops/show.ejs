@@ -1,0 +1,182 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3 mb-5">
+  <div class="col-10 offset-1 col-lg-6 offset-lg-3">
+    <h3 class="mb-3"><%= shop.shop_name %></h3>
+  </div>
+
+  <div id="skeleton-container2">
+    <div class="row mt-3 mb-5 listing-skeleton">
+      <div class="card col-10 offset-1 col-lg-6 offset-lg-3 show-card listing-card">
+        <div class="skeleton-img-container">
+          <div class="skeleton skeleton-img"></div>
+        </div>
+        <div class="card-body p-3">
+          <div class="skeleton skeleton-text mb-2 w-50"></div>
+          <div class="skeleton skeleton-text mb-2 w-100"></div>
+          <div class="skeleton skeleton-text mb-2 w-75"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-container" style="display: none;">
+    <div class="card col-10 offset-1 col-lg-6 offset-lg-3 show-card listing-card">
+      <div class="img-container" id="img-container">
+        <% for(image of shop.image) { %>
+          <img
+            src="<%= image.url %>"
+            class="slide card-img-top show-img"
+            alt="shop_image"
+          />
+        <% } %>
+        <button class="previous"><i class="fa-solid fa-circle-chevron-left"></i></button>
+        <button class="next"><i class="fa-solid fa-circle-chevron-right"></i></button>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text"><i>Owned by <%= shop.owner.username %></i></p>
+        <p class="card-text"><%= shop.description %></p>
+        <p class="card-text"><b>Country:</b> <%= shop.country %></p>        
+        <p class="card-text"><b>State:</b> <%= shop.state?.name || "Unknown" %></p>
+        <p class="card-text"><b>Location:</b> <%= shop.location %></p>
+        <p class="card-text"><b>Type:</b> <%= shop.category %></p>
+
+        <p class="card-text">
+          <% if (sum > 0) { %>
+            <span>Rating: <%= Number(sum).toFixed(1) %></span>
+          <% } else { %>
+            <span>No rating yet</span>
+          <% } %>
+          <span class="rating">
+            <% if (sum > 0) { %>
+              <% for (let i = 1; i <= Math.floor(sum); i++) { %>
+                <i class="fa-solid fa-star"></i>
+              <% } %>
+              <% if (sum % 1 !== 0) { %>
+                <i class="fa-solid fa-star-half-alt"></i>
+              <% } %>
+            <% } %>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <% if(currUser && currUser._id.equals(shop.owner._id)) { %>
+      <div style="padding-left: 0rem !important;" class="btns">
+        <a class="btn-show-edit btn btn-dark col-1 offset-lg-3 offset-1"
+          href="/shops/<%= shop._id %>/edit">Edit</a>
+        <form method="post" action="/shops/<%= shop._id %>?_method=Delete">
+          <button class="btn-show-delete btn btn-dark offset-5">Delete</button>
+        </form>
+      </div>
+    <% } %>
+
+    <div style="padding: 0;" class="col-10 offset-1 col-lg-6 offset-lg-3 mb-3">
+      <hr />
+      <% if(currUser) { %>
+        <form method="post" novalidate class="needs-validation" action="/shops/<%= shop._id %>/review">
+          <div class="mt-3 mb-1">
+            <label class="form-label">Rating</label>
+            <fieldset class="starability-slot">
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+              <input type="radio" id="rate1" name="review[rating]" value="1" />
+              <label for="rate1" title="Terrible">1 star</label>
+              <input type="radio" id="rate2" name="review[rating]" value="2" />
+              <label for="rate2" title="Not good">2 stars</label>
+              <input type="radio" id="rate3" name="review[rating]" value="3" />
+              <label for="rate3" title="Average">3 stars</label>
+              <input type="radio" id="rate4" name="review[rating]" value="4" />
+              <label for="rate4" title="Very good">4 stars</label>
+              <input type="radio" id="rate5" name="review[rating]" value="5" />
+              <label for="rate5" title="Amazing">5 stars</label>
+            </fieldset>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="comment">Comment</label>
+            <textarea name="review[comment]" rows="5" cols="30" class="form-control" required></textarea>
+            <div class="invalid-feedback">Please add comment for review.</div>
+          </div>
+          <button class="btn-show-submit btn btn-outline-dark">Submit</button>
+        </form>
+        <hr />
+      <% } %>
+
+      <% if(shop.reviews.length > 0) { %>
+        <div class="overallview">
+          <div class="container-ratings-count">
+            <img class="rating-deco-img"
+              src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-GuestFavorite/original/78b7687c-5acf-4ef8-a5ea-eda732ae3b2f.png" />
+            <div>
+              <div class="review-rating-count">
+                <% if (sum > 0) { %>
+                  <span><%= Number(sum).toFixed(1) %></span>
+                <% } else { %>
+                  <span>No rating yet</span>
+                <% } %>
+                <span class="rating">
+                  <% if (sum > 0) { %>
+                    <% for (let i = 1; i <= Math.floor(sum); i++) { %>
+                      <i class="fa-solid fa-star"></i>
+                    <% } %>
+                    <% if (sum % 1 !== 0) { %>
+                      <i class="fa-solid fa-star-half-alt"></i>
+                    <% } %>
+                  <% } %>
+                </span>
+              </div>
+              <div class="review-rating-count"><b>Overall rating</b></div>
+            </div>
+            <img class="rating-deco-img"
+              src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-GuestFavorite/original/b4005b30-79ff-4287-860c-67829ecd7412.png" />
+          </div>
+          <div class="vertical-line"></div>
+          <div class="container-reviews-count">
+            <div class="review-rating-count"><%= count %></div>
+            <div class="review-rating-count"><b>Reviews</b></div>
+          </div>
+        </div>
+        <hr />
+
+        <p><b>All Reviews</b></p>
+        <div class="row">
+          <% for (review of shop.reviews) { %>
+            <div class="card col-11 col-lg-5 ms-3 mb-3 pt-2">
+              <div class="card-body">
+                <h5 class="card-title">@<%= review.author.username %></h5>
+                <p class="card-text"><%= review.comment %></p>
+                <p class="card-text">
+                  <%= review.rating %>
+                  <span class="rating">
+                    <% for(let i = 1; i<= review.rating; i++) { %>
+                      <i class="fa-solid fa-star"></i>
+                    <% } %>
+                  </span>
+                </p>
+              </div>
+              <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                <div class="review-btn-container">
+                  <form
+                    class="mb-3"
+                    method="post"
+                    action="/shops/<%= shop._id %>/review/<%= review._id %>?_method=Delete"
+                  >
+                    <button class="btn btn-sm btn-dark btn-show-delete mt-2">Delete</button>
+                  </form>
+                  <a
+                    href="/shops/<%= shop._id %>/review/<%= review._id %>/edit"
+                    class="reviewedit"
+                  >
+                    <button class="btn btn-sm btn-dark btn-show-edit ms-3 mb-2">Edit</button>
+                  </a>
+                </div>
+              <% } %>
+            </div>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="/js/map.js"></script>

@@ -50,6 +50,7 @@ const listingSchema = new mongoose.Schema({
     type: String,
     enum: [
       "Trending",
+      "5-star",
       "Amazing pools",
       "Beach front",
       "Mountain cities",
@@ -63,6 +64,10 @@ const listingSchema = new mongoose.Schema({
       "Boats",
     ],
     required: true,
+  },
+  state: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "State",
   },
 });
 

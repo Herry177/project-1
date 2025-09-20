@@ -1,0 +1,134 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3 mb-5">
+  <div class="col-8 offset-2">
+    <h3 class="mb-2">Create a new place</h3>
+
+    <!-- Skeleton Loader -->
+    <div id="form-skeleton-container">
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100" style="height: 100px"></div>
+      </div>
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <div class="skeleton skeleton-text w-50 mb-2"></div>
+          <div class="skeleton skeleton-input w-100"></div>
+        </div>
+      </div>
+      <div class="skeleton skeleton-button mt-3 w-25"></div>
+    </div>
+
+    <!-- Main Form -->
+    <div id="form-main-container2" style="display: none;">
+      <form
+        method="post"
+        action="/places"
+        enctype="multipart/form-data"
+        novalidate
+        class="needs-validation"
+      >
+        <div class="mb-3">
+          <label for="place_name" class="form-label">Place Name</label>
+          <input
+            required
+            type="text"
+            name="place[place_name]"
+            id="place_name"
+            class="form-control"
+            placeholder="Enter place name"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            required
+            name="place[description]"
+            id="description"
+            class="form-control"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Place Images</label>
+          <input
+            required
+            type="file"
+            name="place[image][]"
+            id="image"
+            class="form-control"
+            multiple
+            accept="image/*"
+          />
+        </div>
+
+         <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input
+              required
+              type="text"
+              name="place[country]"
+              placeholder="India"
+              id="country"
+              class="form-control"
+            />
+            <div class="invalid-feedback">Country name should be valid</div>
+          </div>
+        </div>
+                
+        <div class="mb-3">
+          <label for="state" class="form-label">State</label>
+          <select name="place[state]" id="state" class="form-select" required>
+            <option value="" disabled selected>Select a State</option>
+            <% for (let s of states) { %>
+              <option value="<%= s._id %>"><%= s.name %></option>
+            <% } %>
+          </select>
+          <div class="invalid-feedback">Please select a state</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input
+            required
+            type="text"
+            name="place[location]"
+            id="location"
+            class="form-control"
+            placeholder="City or area"
+          />
+        </div>
+
+        
+        <div class="mb-3">
+          <label for="type" class="form-label">Type</label>
+          <select name="place[type]" id="type" class="form-select" required>
+            <option>Select Category</option>
+            <option value="Trending">Trending</option>
+            <option value="5-star">5-star</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Historical">Historical</option>
+            <option value="Religious">Religious</option>
+            <option value="Nature">Nature</option>
+          </select>
+        </div>
+
+        <button class="btn btn-dark add-btn mt-3">Add Place</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,12 @@
         </a>
       </div>
       <div class="filter-opt">
+        <a href="/listings/category/5-star">
+          <div><i class="fa-solid fa-star"></i></div>
+          <p>5-star</p>
+        </a>
+      </div>
+      <div class="filter-opt">
         <a href="/listings/category/Amazing pools">
           <div><i class="fa-solid fa-person-swimming"></i></div>
           <p>Amazing pools</p>
@@ -109,19 +115,15 @@
     <% } %>
   </div>
 </div>
-
 <div id="listing-container" style="display: none">
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
     <%for (listing of allListings) {%>
     <a href="/listings/<%= listing._id %>" class="listing-link">
       <div class="card col listing-card">
-        <img
-          src="<%= listing.image[0].url %>"
-          class="card-img-top"
-          alt="listing_image"
-          style="height: 20rem"
-        />
-        <div class="card-img-overlay">See in detail</div>
+        <img src="<%= listing.image[0].url %>" class="card-img-top" alt="listing_image" style="height: 20rem" />
+        <div class="card-img-overlay listing-overlay">
+          <p class="overlay-text">See Details</p>
+        </div>
         <div class="card-body mt-1">
           <p class="card-text">
             <b><%= listing.title %></b> <br />

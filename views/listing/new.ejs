@@ -129,11 +129,25 @@
           />
           <div class="invalid-feedback">Location should be valid</div>
         </div>
+       
+        <div class="mb-3">
+          <label for="state" class="form-label">State</label>
+          <select name="listing[state]" id="state" class="form-select" required>
+            <option value="" disabled selected>Select a State</option>
+            <% for (let s of states) { %>
+              <option value="<%= s._id %>"><%= s.name %></option>
+            <% } %>
+          </select>
+          </select>
+          <div class="invalid-feedback">Please select a state</div>
+        </div>
 
         <div class="mb-3">
           <label class="form-label" for="category">Category</label>
           <select class="form-select" name="listing[category]" id="category">
+            <option>Select Category</option>
             <option value="Trending">Trending</option>
+            <option value="5-star">5-star</option>
             <option value="Amazing pools">Amazing pools</option>
             <option value="Beach front">Beach front</option>
             <option value="Mountain cities">Mountain cities</option>
@@ -149,8 +163,7 @@
 
           <div class="invalid-feedback">category should be valid</div>
         </div>
-
-        <button class="btn btn-dark add-btn mt-3">add</button>
+        <button class="btn btn-dark add-btn mt-3">Add Hotel</button>
       </form>
     </div>
   </div>

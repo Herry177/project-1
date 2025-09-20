@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+<h3 class="mt-1 mb-3">Your All Shops</h3>
+
+<div id="skeleton-container">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let i = 0; i < 6; i++) { %>
+      <div class="card col shop-card skeleton-card">
+        <div class="skeleton-img"></div>
+        <div class="card-body mt-1">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line price"></div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<div id="listing-container" style="display: none;">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (shop of shops) { %>
+      <a href="/shops/<%= shop._id %>" class="listing-link">
+        <div class="card col listing-card">
+          <img
+            src="<%= shop.image[0]?.url || '/images/placeholder.png' %>"
+            class="card-img-top"
+            alt="shop_image"
+            style="height: 20rem"
+          />
+          <div class="card-img-overlay listing-overlay">
+          <p class="overlay-text">See Details</p>
+        </div>
+          <div class="card-body mt-1">
+            <p class="card-text">
+              <b><%= shop.name %></b> <br />
+              <%= shop.category %> <br />
+              <%= shop.state?.name || 'Unknown State' %>
+            </p>
+          </div>
+        </div>
+      </a>
+    <% } %>
+  </div>
+</div>

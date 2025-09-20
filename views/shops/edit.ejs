@@ -1,0 +1,107 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3 mb-5">
+  <div class="col-8 offset-2">
+    <h3 class="mb-2">Edit&nbsp; your&nbsp; shop</h3>
+
+    <div id="form-skeleton-container">
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100" style="height: 100px;"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text mb-1" style="width: 250px;"></div>
+        <div class="skeleton-img" style="height: 150px; width: 250px; border-radius: 10px;"></div>
+      </div>
+
+      <div class="skeleton skeleton-button mt-3 w-25"></div>
+    </div>
+
+    <div id="form-main-container2" style="display: none;">
+      <form
+        method="post"
+        action="/shops/<%= shop._id %>?_method=put"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="name" class="form-label">Shop Name</label>
+          <input
+            type="text"
+            name="shop[name]"
+            placeholder="Enter shop name"
+            value="<%= shop.name %>"
+            id="name"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            name="shop[description]"
+            id="description"
+            class="form-control"
+            required
+          ><%= shop.description %></textarea>
+          <div class="invalid-feedback">Enter a short description</div>
+        </div>
+
+        <div class="mb-3">
+          Original Image<br>
+          <% if (shop.image && shop.image.length > 0) { %>
+            <img style="height: 150px; width: 250px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.5);" 
+                 src="<%= shop.image[0].url %>" alt="Shop_Image">
+          <% } %>
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Choose New Image</label>
+          <input
+            type="file"
+            name="shop[image][]"
+            id="image"
+            class="form-control"
+            multiple
+            accept="image/*"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="category">Category</label>
+          <select class="form-select" name="shop[category]" id="category">
+            <option value="Trending" <%= shop.category === "Trending" ? "selected" : "" %>>Tranding</option>
+            <option value="5-star" <%= shop.category === "5-star" ? "selected" : "" %>>5-star</option>
+            <option value="Food" <%= shop.category === "Food" ? "selected" : "" %>>Food</option>
+            <option value="Handicraft" <%= shop.category === "Handicraft" ? "selected" : "" %>>Handicraft</option>
+            <option value="Clothing" <%= shop.category === "Clothing" ? "selected" : "" %>>Clothing</option>
+            <option value="Other" <%= shop.category === "Other" ? "selected" : "" %>>Other</option>
+          </select>
+          <div class="invalid-feedback">Please select a valid category</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="state">State</label>
+          <select class="form-select" name="shop[state]" id="state">
+            <% for (let s of states) { %>
+              <option value="<%= s._id %>" <%= shop.state && shop.state.equals(s._id) ? "selected" : "" %>>
+                <%= s.name %>
+              </option>
+            <% } %>
+          </select>
+          <div class="invalid-feedback">Please select a valid state</div>
+        </div>
+        
+        <button class="btn btn-dark add-btn mt-3">Update Shop</button>
+      </form>
+    </div>
+  </div>
+</div>

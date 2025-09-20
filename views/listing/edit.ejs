@@ -152,6 +152,7 @@
         <label class="form-label" for="category">Category</label>
         <select class="form-select" name="listing[category]" id="category">
           <option value="Trending" <%= listing.category === "Trending" ? "selected" : "" %>>Trending</option>
+          <option value="5-star" <%= listing.category === "5-star" ? "selected" : "" %>>5-star</option>
           <option value="Amazing pools" <%= listing.category === "Amazing pools" ? "selected" : "" %>>Amazing pools</option>
           <option value="Beach front" <%= listing.category === "Beach front" ? "selected" : "" %>>Beach front</option>
           <option value="Mountain cities" <%= listing.category === "Mountain cities" ? "selected" : "" %>>Mountain cities</option>
@@ -167,7 +168,22 @@
         <div class="invalid-feedback">category should be valid</div>
       </div>
 
-      <button class="btn btn-dark edit-btn mt-3">Edit</button>
+      <div class="mb-3">
+        <label for="state" class="form-label">State</label>
+        <select name="listing[state]" id="state" class="form-select" required>
+          <option value="">Select a state</option>
+          <% for (let s of states) { %>
+            <option value="<%= s._id %>" 
+            <%= listing && listing.state && listing.state.equals(s._id) ? "selected" : "" %>>
+            <%= s.name %>
+            </option>
+          <% } %>
+        </select>
+      <div class="invalid-feedback">Please select a state</div>
+</div>
+
+
+      <button class="btn btn-dark add-btn mt-3">Edit</button>
     </form>
     </div>
   </div>

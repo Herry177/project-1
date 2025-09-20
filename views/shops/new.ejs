@@ -1,0 +1,139 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3 mb-5">
+  <div class="col-8 offset-2">
+    <h3 class="mb-2">Create a new shop</h3>
+
+    <!-- Skeleton loader -->
+    <div id="form-skeleton-container">
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100" style="height: 100px"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-50 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="skeleton skeleton-text w-25 mb-2"></div>
+        <div class="skeleton skeleton-input w-100"></div>
+      </div>
+
+      <div class="skeleton skeleton-button mt-3 w-25"></div>
+    </div>
+
+    <!-- Actual form -->
+    <div id="form-main-container2" style="display: none">
+      <form
+        method="post"
+        action="/shops"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Shop Name</label>
+          <input
+            required
+            type="text"
+            name="shop[name]"
+            placeholder="Enter shop name"
+            id="name"
+            class="form-control"
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            required
+            name="shop[description]"
+            id="description"
+            class="form-control"
+          ></textarea>
+          <div class="invalid-feedback">Enter a short description</div>
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Shop Image</label>
+          <input
+            type="file"
+            name="shop[image][]"
+            id="image"
+            class="form-control"
+            multiple
+            accept="image/*"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input
+              required
+              type="text"
+              name="shop[country]"
+              placeholder="India"
+              id="country"
+              class="form-control"
+            />
+            <div class="invalid-feedback">Country name should be valid</div>
+          </div>
+        </div>
+
+        <!-- State -->
+        <div class="mb-3">
+          <label class="form-label" for="state">State</label>
+          <select class="form-select" name="shop[state]" id="state">
+            <option>Select a State</option>
+            <% for (let s of states) { %>
+              <option value="<%= s._id %>"><%= s.name %></option>
+            <% } %>
+          </select>
+          <div class="invalid-feedback">Please select a valid state</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input
+            required
+            type="text"
+            name="shop[location]"
+            placeholder="Jaipur, Rajesthan"
+            id="location"
+            class="form-control"
+          />
+          <div class="invalid-feedback">Location should be valid</div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+          <label class="form-label" for="category">Category</label>
+          <select class="form-select" name="shop[category]" id="category">
+            <option>Select Category</option>
+            <option value="Trending">Trending</option>
+            <option value="5-star">5-star</option>
+            <option value="Food">Food</option>
+            <option value="Handicraft">Handicraft</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Other">Other</option>
+          </select>
+          <div class="invalid-feedback">Please select a valid category</div>
+        </div>
+
+        <!-- Submit -->
+        <button class="btn btn-dark add-btn mt-3">Add Shop</button>
+      </form>
+    </div>
+  </div>
+</div>

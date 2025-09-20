@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+<h4 class="mt-1 mb-3" style="word-spacing: 0.12rem">
+  Top Places in '<%= name %>' – Just for You!
+</h4>
+<div id="skeleton-container">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let i = 0; i < 6; i++) { %>
+    <div class="card col listing-card skeleton-card">
+      <div class="skeleton-img"></div>
+      <div class="card-body mt-1">
+        <div class="skeleton-line title"></div>
+        <div class="skeleton-line price"></div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<div id="listing-container" style="display: none">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (place of places) { %>
+    <a href="/places/<%= place._id %>" class="place-link">
+      <div class="card col listing-card">
+        <img
+          src="<%= place.image[0].url %>"
+          class="card-img-top"
+          alt="place_image"
+          style="height: 20rem"
+        />
+        <div class="card-img-overlay listing-overlay">
+          <p class="overlay-text">See Details</p>
+        </div>
+        <div class="card-body mt-1">
+          <p class="card-text">
+            <b><%= place.place_name %></b> <br />
+            <%= place.location %> <br />
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+</div>
