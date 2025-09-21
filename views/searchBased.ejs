@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,63 +14,7 @@
     <link rel="stylesheet" href="/css/searchBased.css">
 </head>
 <body >
-    <nav>
-        <div class="nav-container1">
-            <div class="logo-group">
-                <a href="/" class="logo-link">
-                    <i class="fa-regular fa-compass"></i>
-                </a>
-                <a href="/" class="logo-text">Trippeo</a>
-            </div>
-            <div class="nav-links">
-                <a href="/listings">Hotels</a>
-                <a href="/shops">Local shops</a>
-                <a href="/places">Tourist Places</a>
-            </div>
-        </div>
-
-        <div class="nav-container2">
-            <a href="#" id="user-menu-toggle">
-                <i class="fa-regular fa-circle-user"></i>
-            </a>
-            <div class="user-dropdown-menu">
-                <% if (!currUser) { %>
-                <div class="user-menu-items">
-                    <a class="nav-link" href="/signup">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <b>SignUp</b>
-                    </a>
-                    <a class="nav-link" href="/login">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <b>Login</b>
-                    </a>
-                </div>
-                <% } else { %>
-                <div class="user-menu-items">
-                    <a href="/listings/<%= currUser._id %>/your/listed" class="nav-link">
-                        <i class="fa-solid fa-clipboard-list"></i>
-                        See Your Listings
-                    </a>
-                    <div class="menu-divider"></div>
-                    <a href="/shops/<%= currUser._id %>/your" class="nav-link">
-                        <i class="fa-solid fa-list-ol"></i>
-                        See Your Shops
-                    </a>
-                    <div class="menu-divider"></div>
-                    <a href="/places/<%= currUser._id %>/your" class="nav-link">
-                        <i class="fa-solid fa-list-check"></i>
-                        See Added Places
-                    </a>
-                    <div class="menu-divider"></div>
-                    <a class="nav-link" href="/logout">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <b>Log Out</b>
-                    </a>
-                </div>
-                <% } %>
-            </div>
-        </div>
-    </nav>
+    <%- include("./includes/navbar.ejs") %>
     <div class="container">
         <!-- Main Header -->
         <h1 class="main-headline">
@@ -76,22 +22,22 @@
         </h1>
 
         <!-- Trending Listings Section -->
-        <% if (trendingListings && trendingListings.length > 0) { %>
-            <div class="mb-12">
-                <h2 class="section-headline">Trending Hotels & Listings</h2>
+        <% if (hotels && hotels.length > 0) { %>
+            <div>
+                <h2 class="section-headline">Hotels</h2>
                 <div class="flex overflow-x-hidden">
                     <!-- Changed class to scroll-container-rtl for right-to-left animation -->
                     <div class="scroll-container scroll-container-rtl flex space-x-6 pb-4">
-                        <% trendingListings.forEach(listing => { %>
+                        <% hotels.forEach(hotel => { %>
                             <div class="card-wrapper w-96 flex-shrink-0">
-                                <a href="/listings/<%= listing._id %>" class="listing-link">
+                                <a href="/listings/<%= hotel._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative w-full h-48">
-                                            <img src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= listing.title %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                            <img src="<%= hotel.image[0] ? hotel.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= hotel.title %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
                                         </div>
                                         <div class="card-body p-4">
-                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= listing.title %></h3>
-                                            <p class="card-text text-gray-700 mt-1"><%= listing.price ? '₹' + listing.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= hotel.title %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= hotel.price ? '₹' + hotel.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
                                         </div>
                                         <div class="listing-overlay absolute inset-0 rounded-xl">
                                             <p class="overlay-text">See Details</p>
@@ -101,16 +47,16 @@
                             </div>
                         <% }) %>
                         <!-- Duplicate content for seamless looping -->
-                        <% trendingListings.forEach(listing => { %>
+                        <% hotels.forEach(hotel => { %>
                             <div class="card-wrapper w-96 flex-shrink-0">
-                                <a href="/listings/<%= listing._id %>" class="listing-link">
+                                <a href="/listings/<%= hotel._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative w-full h-48">
-                                            <img src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= listing.title %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                            <img src="<%= hotel.image[0] ? hotel.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= hotel.title %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
                                         </div>
                                         <div class="card-body p-4">
-                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= listing.title %></h3>
-                                            <p class="card-text text-gray-700 mt-1"><%= listing.price ? '₹' + listing.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= hotel.title %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= hotel.price ? '₹' + hotel.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
                                         </div>
                                         <div class="listing-overlay absolute inset-0 rounded-xl">
                                             <p class="overlay-text">See Details</p>
@@ -125,21 +71,21 @@
         <% } %>
 
         <!-- Trending Places Section -->
-        <% if (trendingPlaces && trendingPlaces.length > 0) { %>
+        <% if (touristPlaces && touristPlaces.length > 0) { %>
             <div>
                 <h2 class="section-headline">Trending Tourist Places</h2>
                 <div class="flex overflow-x-hidden">
                     <div class="scroll-container scroll-container-ltr flex space-x-6 pb-4">
-                        <% trendingPlaces.forEach(place => { %>
+                        <% touristPlaces.forEach(touristPlace => { %>
                             <div class="card-wrapper w-96 flex-shrink-0">
-                                <a href="/places/<%= place._id %>" class="listing-link">
+                                <a href="/places/<%= touristPlace._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative w-full h-48">
-                                            <img src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= place.place_name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                            <img src="<%= touristPlace.image[0] ? touristPlace.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= touristPlace.place_name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
                                         </div>
                                         <div class="card-body p-4">
-                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= place.place_name %></h3>
-                                            <p class="card-text text-gray-700 mt-1"><%= place.type %></p>
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= touristPlace.place_name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= touristPlace.type %></p>
                                         </div>
                                         <div class="listing-overlay absolute inset-0 rounded-xl">
                                             <p class="overlay-text">See Details</p>
@@ -149,16 +95,16 @@
                             </div>
                         <% }) %>
                         <!-- Duplicate content for seamless looping -->
-                        <% trendingPlaces.forEach(place => { %>
+                        <% touristPlaces.forEach(touristPlace => { %>
                             <div class="card-wrapper w-96 flex-shrink-0">
-                                <a href="/places/<%= place._id %>" class="listing-link">
+                                <a href="/places/<%= touristPlace._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative w-full h-48">
-                                            <img src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= place.place_name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                            <img src="<%= touristPlace.image[0] ? touristPlace.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= touristPlace.place_name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
                                         </div>
                                         <div class="card-body p-4">
-                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= place.place_name %></h3>
-                                            <p class="card-text text-gray-700 mt-1"><%= place.type %></p>
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= touristPlace.place_name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= touristPlace.type %></p>
                                         </div>
                                         <div class="listing-overlay absolute inset-0 rounded-xl">
                                             <p class="overlay-text">See Details</p>
@@ -173,21 +119,21 @@
         <% } %>
         
         <!-- Trending Shops Section -->
-        <% if (trendingShops && trendingShops.length > 0) { %>
-            <div class="mb-12">
+        <% if (localShops && localShops.length > 0) { %>
+            <div class="mb-2">
                 <h2 class="section-headline">Trending Shops</h2>
                 <div class="flex overflow-x-hidden">
                     <div class="scroll-container scroll-container-rtl flex space-x-6 pb-4">
-                        <% trendingShops.forEach(shop => { %>
+                        <% localShops.forEach(localShop => { %>
                             <div class="card-wrapper w-96 flex-shrink-0">
-                                <a href="/shops/<%= shop._id %>" class="listing-link">
+                                <a href="/shops/<%= localShop._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative w-full h-48">
-                                            <img src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= shop.name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                            <img src="<%= localShop.image[0] ? localShop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= localShop.name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
                                         </div>
                                         <div class="card-body p-4">
-                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= shop.name %></h3>
-                                            <p class="card-text text-gray-700 mt-1"><%= shop.category %> Shop</p>
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= localShop.name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= localShop.category %> Shop</p>
                                         </div>
                                         <div class="listing-overlay absolute inset-0 rounded-xl">
                                             <p class="overlay-text">See Details</p>
@@ -197,16 +143,16 @@
                             </div>
                         <% }) %>
                         <!-- Duplicate content for seamless looping -->
-                        <% trendingShops.forEach(shop => { %>
+                        <% localShops.forEach(localShop => { %>
                             <div class="card-wrapper w-96 flex-shrink-0">
-                                <a href="/shops/<%= shop._id %>" class="listing-link">
+                                <a href="/shops/<%= localShop._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative w-full h-48">
-                                            <img src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= shop.name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
+                                            <img src="<%= localShop.image[0] ? localShop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= localShop.name %>" class="card-img-top w-full h-full object-cover rounded-t-xl"/>
                                         </div>
                                         <div class="card-body p-4">
-                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= shop.name %></h3>
-                                            <p class="card-text text-gray-700 mt-1"><%= shop.category %> Shop</p>
+                                            <h3 class="text-lg font-semibold text-gray-900 truncate"><%= localShop.name %></h3>
+                                            <p class="card-text text-gray-700 mt-1"><%= localShop.category %> Shop</p>
                                         </div>
                                         <div class="listing-overlay absolute inset-0 rounded-xl">
                                             <p class="overlay-text">See Details</p>
@@ -218,18 +164,20 @@
                     </div>
                 </div>
             </div>
-        <% } %>
+        <% } %> 
+
+        
 
         <!-- No Results Found Message -->
-        <% if (trendingListings.length === 0 && trendingShops.length === 0 && trendingPlaces.length === 0) { %>
+        <% if (hotels.length === 0 && localShops.length === 0 && touristPlaces.length === 0) { %>
             <div class="no-results">
-                <p>No trending or 5-star listings, shops, or places found for <%= statename %>.</p>
+                <p>No Hotels, Local Shops, or Tourist Places found for <%= statename %>.</p>
                 <p class="mt-2">Please try searching for a different state.</p>
             </div>
         <% } %>
 
     </div>
-
+    <%- include("./includes/footer.ejs") %>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const userMenuToggle = document.getElementById('user-menu-toggle');

@@ -1,0 +1,65 @@
+<% layout("/layouts/boilerplate") %>
+<h3>Searched results</h3>
+
+<!-- Skeleton loader -->
+<div id="skeleton-container">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let i = 0; i < 6; i++) { %>
+    <div class="card col listing-card skeleton-card">
+      <div class="skeleton-img"></div>
+      <div class="card-body mt-1">
+        <div class="skeleton-line title"></div>
+        <div class="skeleton-line price"></div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<!-- Results container -->
+<div id="listing-container" style="display: none;">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let item of listings) { %>
+    <a href="/<%=type%>/<%=item._id%>" class="listing-link">
+      <div class="card col listing-card">
+        <% if(item.image && item.image[0]) { %>
+        <img
+          src="<%= item.image[0].url %>"
+          class="card-img-top"
+          alt="item_image"
+          style="height: 20rem"
+        />
+        <% } %>
+         <div class="card-img-overlay listing-overlay">
+          <p class="overlay-text">See Details</p>
+        </div>
+        <div class="card-body mt-1">
+          <p class="card-text">
+            <b><%= item.title || item.name || item.place_name %></b> <br />
+
+            <!-- Price only for listings -->
+            <% if(item.type === 'listing' && item.price) { %>
+            &#8377;<%= item.price.toLocaleString("en-IN") %> / night <br />
+            <% } %>
+
+            <!-- Location if available -->
+            <% if(item.location) { %>
+            <%= item.location %> <br />
+            <% } %>
+
+            <!-- Country if available -->
+            <% if(item.country) { %>
+            <%= item.country %> <br />
+            <% } %>
+
+            <!-- Category for listings, shops, places -->
+            <% if(item.category) { %>
+            <%= item.category %> <br />
+            <% } %>
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+</div>

@@ -40,7 +40,7 @@ const states = [
   { state_id: 36, name: "Puducherry" }
 ];
 
-const dbUrl = 'mongodb://127.0.0.1:27017/wanderlust';
+const dbUrl = "";
 
 main()
   .then(() => {

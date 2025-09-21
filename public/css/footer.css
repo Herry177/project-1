@@ -1,0 +1,90 @@
+/* --- Footer Styling --- */
+.footer {
+    background-color: #f0f2f5;
+    padding: 1.5rem 1rem;
+    color: #555;
+    font-size: 0.9rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer__social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #1e3a8a; /* Default color of icons */
+    transition: all 0.3s ease-in-out;
+}
+
+.social-icon:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.social-icon i {
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+}
+
+/* Social Icon Hover Colors */
+.social-icon--facebook:hover i {
+    color: #1877f2;
+}
+
+.social-icon--instagram:hover i {
+    color: #e4405f;
+}
+
+.social-icon--twitter:hover i {
+    color: #2bc4a5; /* Using your website's primary accent color */
+}
+
+.social-icon--linkedin:hover i {
+    color: #0077b5;
+}
+
+.footer__brand-info {
+    font-weight: 600;
+    text-align: center;
+}
+
+.footer__links a {
+    text-decoration: none;
+    color: #1e3a8a; /* Matching the brand color */
+    font-weight: 600;
+    margin: 0 1rem;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease;
+}
+
+.footer__links a:hover {
+    color: #2bc4a5; /* Matching the accent color */
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer__content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

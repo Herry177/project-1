@@ -6,6 +6,7 @@ const passport = require("passport");
 const { saveredirectUrl } = require("../miiddleware.js");
 const { commonPasswords } = require("../commonpasses.js");
 const userController = require("../controller/user.js");
+const user = require("../modules/user.js");
 
 router.route("/signup")
   .get(userController.signupFormRender)

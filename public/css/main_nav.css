@@ -293,95 +293,153 @@ svg {
   transform: translateY(-2px);
 }
 
-.footer {
-    background-color: #f0f2f5;
-    padding: 1.5rem 1rem;
-    color: #555;
-    font-size: 0.9rem;
-    border-top: 1px solid #e0e0e0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+.container{
+  margin-bottom: 8rem;
 }
 
-.footer__content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/* --- Updated Carousel Styles for tighter spacing and 3 cards --- */
+      .carousel-section {
+        margin-top: 2rem;
+        padding: 1rem;
+      }
 
-.footer__social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.25rem;
-}
+      .carousel-container {
+        position: relative;
+        overflow: hidden;
+      }
 
-.social-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 45px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    color: #1e3a8a; /* Default color of icons */
-    transition: all 0.3s ease-in-out;
-}
+      .carousel-inner {
+        display: flex;
+        width: max-content;
+        transition: transform 1s ease-in-out;
+        will-change: transform;
+      }
 
-.social-icon:hover {
-    transform: translateY(-4px) scale(1.1);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.social-icon i {
-    font-size: 1.25rem;
-    transition: color 0.3s ease;
-}
-
-/* Social Icon Hover Colors */
-.social-icon--facebook:hover i {
-    color: #1877f2;
-}
-
-.social-icon--instagram:hover i {
-    color: #e4405f;
-}
-
-.social-icon--twitter:hover i {
-    color: #2bc4a5; /* Using your website's primary accent color */
-}
-
-.social-icon--linkedin:hover i {
-    color: #0077b5;
-}
-
-.footer__brand-info {
-    font-weight: 600;
-    text-align: center;
-}
-
-.footer__links a {
-    text-decoration: none;
-    color: #1e3a8a; /* Matching the brand color */
-    font-weight: 600;
-    margin: 0 1rem;
-    transition: color 0.3s ease-in-out, text-decoration 0.3s ease;
-}
-
-.footer__links a:hover {
-    color: #2bc4a5; /* Matching the accent color */
-    text-decoration: underline;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .footer__content {
+      .carousel-card {
+        display: flex;
         flex-direction: column;
-        gap: 1rem;
-    }
-}
+        /* The size of the card is now fixed */
+        width: 320px;
+        height: 350px;
+        flex-shrink: 0;
+        background-color: #ffffff;
+        border-radius: 1.25rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+         box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        cursor: pointer;
+        /* Reduced margin to create less space between cards */
+        margin: 0.6rem 80px;
+      }
+
+      .carousel-card:hover {
+        transform: scale(1.05); /* Increased scale on hover */
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Deeper shadow on hover */
+      }
+
+      .card-image-container {
+        position: relative;
+        width: 100%;
+        height: 280px; /* Fixed height for the image container */
+        overflow: hidden;
+      }
+
+      .card-img-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This is crucial for maintaining image aspect ratio without distortion */
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .carousel-card:hover .card-img-top {
+        transform: scale(1.1); /* Subtle zoom effect on image */
+      }
+
+      .listing-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .carousel-card:hover .listing-overlay {
+        opacity: 1;
+      }
+
+      .overlay-text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+      }
+
+      .overlay-text {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      /* New hover effect for the headings */
+      .section-headline {
+        position: relative;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 1.5rem;
+        transition: color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .section-headline:hover {
+        color: #2bc4a5;
+      }
+
+      .section-headline::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 4px;
+        background-color: #2bc4a5;
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .section-headline:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* Scrolling Text Section Styles */
+      .scrolling-text-section {
+        overflow: hidden;
+        white-space: nowrap;
+        background-color: #2bc4a5;
+        padding: 0.5rem 0;
+        margin: 0rem 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .scrolling-text {
+        display: inline-block;
+        font-size: 4vw;
+        font-weight: 900;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 0 4rem;
+        will-change: transform;
+      }

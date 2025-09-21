@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive India Map</title>
-    <link rel="stylesheet" href="/css/main_nav.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -15,9 +14,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/css/main_nav.css">
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <nav>
@@ -305,48 +306,122 @@
           </svg>
         </div>
         <div class="search-form-section">
-    <h3 class="form-heading">Find Your Perfect Destination</h3>
-    <form class="search-form" id="search-form" action="#" method="GET">
-        <div class="form-group">
-            <label for="state-search">State</label>
-            <input
+          <h3 class="form-heading">Find Your Perfect Destination</h3>
+          <form class="search-form" id="search-form" action="#" method="GET">
+            <div class="form-group">
+              <label for="state-search">State</label>
+              <input
                 type="text"
                 id="state-search"
                 name="state"
                 class="form-control"
                 placeholder="Select state from map or type here"
-            />
+              />
+            </div>
+            <button type="submit" class="btn search-btn">Search Now</button>
+          </form>
         </div>
-        <button type="submit" class="btn search-btn">Search Now</button>
-    </form>
-</div>
       </div>
     </div>
-    <footer class="footer">
-    <div class="footer__content">
-        <div class="footer__social-links">
-            <a href="https://www.facebook.com/profile.php?id=61574897334834" target="_blank" aria-label="Facebook" class="social-icon social-icon--facebook">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-            <a href="https://www.instagram.com/wander_demo_07/" target="_blank" aria-label="Instagram" class="social-icon social-icon--instagram">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://x.com/Wander_lust_007" target="_blank" aria-label="Twitter" class="social-icon social-icon--twitter">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/wanderlust-demo-accont-658444359/" target="_blank" aria-label="LinkedIn" class="social-icon social-icon--linkedin">
-                <i class="fa-brands fa-linkedin-in"></i>
-            </a>
-        </div>
-        <div class="footer__brand-info">
-            &copy; 2025 WanderLust Private Limited
-        </div>
-        <div class="footer__links">
-            <a href="/listings/Privacy">Privacy</a>
-            <a href="/listings/terms">Terms</a>
-        </div>
+
+    <div class="scrolling-text-section">
+      <div class="scrolling-text">
+        Discover India's Gems • Find Your Next Adventure • Explore New Horizons • Start Your Journey • Discover India's Gems • Find Your Next Adventure • Explore New Horizons • Start Your Journey
+      </div>
     </div>
-</footer>
+
+    <div class="container p-4">
+      <% if (trendingListings && trendingListings.length > 0) { %>
+      <div class="carousel-section">
+        <h2 class="section-headline">Trending Hotels Showcase</h2>
+        <div id="listings-carousel" class="carousel-container">
+          <div class="carousel-inner">
+            <% trendingListings.forEach((listing) => { %>
+              <div class="carousel-item">
+                <a href="/listings/<%= listing._id %>" class="listing-link">
+                  <div class="carousel-card">
+                    <div class="card-image-container">
+                      <img src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= listing.title %>" class="card-img-top"/>
+                      <div class="listing-overlay">
+                        <div class="overlay-text-container">
+                          <span class="overlay-text">See Details</span>
+                        </div>
+                      </div>
+                  </div>
+                    <div class="p-4">
+                      <h3 class="text-lg font-semibold text-gray-900 truncate"><%= listing.title %></h3>
+                      <p class="text-gray-700 mt-1"><%= listing.price ? '₹' + listing.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <% if (trendingPlaces && trendingPlaces.length > 0) { %>
+      <div class="carousel-section">
+        <h2 class="section-headline">Trending Tourist Places Showcase</h2>
+        <div id="places-carousel" class="carousel-container">
+          <div class="carousel-inner">
+            <% trendingPlaces.forEach((place) => { %>
+              <div class="carousel-item">
+                <a href="/places/<%= place._id %>" class="listing-link">
+                  <div class="carousel-card">
+                    <div class="card-image-container">
+                      <img src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= place.place_name %>" class="card-img-top"/>
+                      <div class="listing-overlay">
+                        <div class="overlay-text-container">
+
+                          <span class="overlay-text">See Details</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-4">
+                      <h3 class="text-lg font-semibold text-gray-900 truncate"><%= place.place_name %></h3>
+                      <p class="text-gray-700 mt-1"><%= place.type %></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <% if (trendingShops && trendingShops.length > 0) { %>
+      <div class="carousel-section">
+        <h2 class="section-headline">Trending Shops Showcase</h2>
+        <div id="shops-carousel" class="carousel-container">
+          <div class="carousel-inner">
+            <% trendingShops.forEach((shop) => { %>
+              <div class="carousel-item">
+                <a href="/shops/<%= shop._id %>" class="listing-link">
+                  <div class="carousel-card">
+                    <div class="card-image-container">
+                      <img src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= shop.name %>" class="card-img-top"/>
+                      <div class="listing-overlay">
+                        <div class="overlay-text-container">
+                          <span class="overlay-text">See Details</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-4">
+                      <h3 class="text-lg font-semibold text-gray-900 truncate"><%= shop.name %></h3>
+                      <p class="text-gray-700 mt-1"><%= shop.category %> Shop</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
     <script>
       const paths = document.querySelectorAll(".land");
       const inp = document.getElementById("state-search");
@@ -384,9 +459,7 @@
             toggleMenu();
           }
         });
-      });
 
-      document.addEventListener("DOMContentLoaded", () => {
         const searchForm = document.getElementById("search-form");
         const stateInput = document.getElementById("state-search");
 
@@ -400,10 +473,79 @@
             // Construct the new URL and redirect
             window.location.href = `/states/${encodeURIComponent(stateName)}`;
           } else {
-            // Optionally handle empty input, e.g., show an alert
-            alert("Please enter a state name to search.");
+            // Optionally handle empty input, e.g., show a custom message
+            // Instead of alert(), use a more graceful UI
+            console.log("Please enter a state name to search.");
           }
         });
+
+        const scrollingText = document.querySelector('.scrolling-text');
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY;
+          // Adjust the multiplier to change the speed of the horizontal scroll
+          const translateValue = -scrollY * 0.5;
+          scrollingText.style.transform = `translateX(${translateValue}px)`;
+        });
+
+        function startCarouselAnimation(carouselId) {
+          const carousel = document.getElementById(carouselId);
+          if (!carousel) return;
+
+          const inner = carousel.querySelector('.carousel-inner');
+          const items = inner.querySelectorAll('.carousel-item');
+          const totalCards = items.length;
+
+          if (totalCards <= 3) {
+            inner.style.justifyContent = 'center';
+            return;
+          }
+
+          let currentIndex = 0;
+          let intervalId;
+          let groupSize = 3;
+
+          for (let i = 0; i < groupSize; i++) {
+            const clone = items[i].cloneNode(true);
+            inner.appendChild(clone);
+          }
+
+          const getCardWidth = () => {
+            const item = inner.querySelector('.carousel-item');
+            if (!item) return 0;
+            const style = window.getComputedStyle(item);
+            return item.offsetWidth + parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+          };
+
+          const moveCarousel = () => {
+            currentIndex++;
+            const slideDistance = currentIndex * getCardWidth();
+
+            inner.style.transition = 'transform 1s ease-in-out';
+            inner.style.transform = `translateX(${-slideDistance}px)`;
+
+            if (currentIndex >= totalCards) {
+              setTimeout(() => {
+                inner.style.transition = 'none';
+                inner.style.transform = `translateX(0)`;
+                currentIndex = 0;
+              }, 1000);
+            }
+          };
+
+          intervalId = setInterval(moveCarousel, 4000);
+
+          window.addEventListener('resize', () => {
+            clearInterval(intervalId);
+            inner.style.transition = 'none';
+            inner.style.transform = 'translateX(0)';
+            currentIndex = 0;
+            intervalId = setInterval(moveCarousel, 4000);
+          });
+        }
+
+        startCarouselAnimation('listings-carousel');
+        startCarouselAnimation('places-carousel');
+        startCarouselAnimation('shops-carousel');
       });
     </script>
   </body>

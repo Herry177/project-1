@@ -109,8 +109,9 @@ module.exports.verifyAccount = async (req, res) => {
 
         req.login(user, (err) => {
             if (err) return next(err);
+            console.log(user);
             req.flash("success", "Account verified successfully!");
-            res.redirect("/listings");
+            res.redirect("/");
         });
     } catch (err) {
         console.error("Verify Error:", err);

@@ -1,129 +1,195 @@
 <nav class="navbar">
-    <div class="navbar__main-container">
-        <div class="navbar__logo-group">
-            <a href="/" class="navbar__logo-link">
-                <i class="fa-regular fa-compass"></i>
-            </a>
-            <a href="/" class="navbar__logo-link">               
-                <p class="navbar__logo-text">Trippeo</p>
-            </a>
-        </div>
-
-        <div class="navbar__links-container">
-            <div class="navbar__main-links">
-                <span class="navbar__link-item" data-dropdown="explore">Explore</span>
-                <span class="navbar__link-item" data-dropdown="start-with-us">Start With Us</span>
-            </div>
-
-            <div class="navbar__dropdown-menu" id="explore-menu">
-                <a href="/listings"><i class="fa-solid fa-hotel"></i> Hotels</a>
-                <a href="/shops"><i class="fa-solid fa-shop"></i> Explore Local Shops</a>
-                <a href="/places"><i class="fa-solid fa-torii-gate"></i> Tourist Places</a>
-            </div>
-            <div class="navbar__dropdown-menu" id="start-with-us-menu">
-                <a href="/listings/new"><i class="fa-solid fa-building"></i> List Your Hotel</a>
-                <a href="/shops/new"><i class="fa-solid fa-store"></i> List Your shop</a>
-                <a href="/places/new"><i class="fa-solid fa-dungeon"></i> List Tourist Place</a>
-            </div>
-
-            <div class="navbar__search-box">
-                <form class="navbar__search-form" novalidate method="get" action="/listings/search">
-                    <input type="text" id="search" name="search" class="navbar__search-input" required />
-                    <button type="submit" class="navbar__search-btn btn">Search</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="navbar__user-options">
-            <div class="navbar__user-icon-div" data-dropdown="user-menu">
-                <i class="fa-solid fa-bars"></i>
-                <i class="fa-regular fa-circle-user"></i>
-            </div>
-        </div>
+  <div class="navbar__main-container">
+    <div class="navbar__logo-group">
+      <a href="/" class="navbar__logo-link">
+        <i class="fa-regular fa-compass"></i>
+      </a>
+      <a href="/" class="navbar__logo-link">
+        <p class="navbar__logo-text">Trippeo</p>
+      </a>
     </div>
+
+    <div class="navbar__links-container">
+      <div class="navbar__main-links">
+        <span class="navbar__link-item" data-dropdown="explore">Explore</span>
+        <span class="navbar__link-item" data-dropdown="start-with-us"
+          >Start With Us</span
+        >
+      </div>
+
+      <div class="navbar__dropdown-menu" id="explore-menu">
+        <a href="/listings"><i class="fa-solid fa-hotel"></i> Hotels</a>
+        <a href="/shops"
+          ><i class="fa-solid fa-shop"></i> Explore Local Shops</a
+        >
+        <a href="/places"
+          ><i class="fa-solid fa-torii-gate"></i> Tourist Places</a
+        >
+      </div>
+      <div class="navbar__dropdown-menu" id="start-with-us-menu">
+        <a href="/listings/new"
+          ><i class="fa-solid fa-building"></i> List Your Hotel</a
+        >
+        <a href="/shops/new"
+          ><i class="fa-solid fa-store"></i> List Your shop</a
+        >
+        <a href="/places/new"
+          ><i class="fa-solid fa-dungeon"></i> List Tourist Place</a
+        >
+      </div>
+
+      <div class="navbar__search-box">
+        <form
+          class="navbar__search-form"
+          novalidate
+          method="get"
+          action="/search"
+        >
+          <!-- Type selection dropdown -->
+          <select name="type" class="navbar__search-type">
+            <option disabled selected>Select type</option>
+            <option value="listings">Listing</option>
+            <option value="shops">Local Shop</option>
+            <option value="places">Tourist Place</option>
+          </select>
+
+          <input
+            type="text"
+            id="search"
+            name="search"
+            class="navbar__search-input"
+            placeholder="Search..."
+            required
+          />
+
+          <button type="submit" class="navbar__search-btn btn">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="navbar__user-options">
+      <div class="navbar__user-icon-div" data-dropdown="user-menu">
+        <i class="fa-solid fa-bars"></i>
+        <i class="fa-regular fa-circle-user"></i>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <div class="responsive-menu">
-    <a href="/listings"><i class="fa-solid fa-list-ul"></i>Explore</a>
-    <a href="/listings/new"><i class="fa-solid fa-plus"></i>AirSide Your Home</a>
-    <div class="responsive-menu__tax-toggle">
-        <input type="checkbox" class="form-check-input" id="tax-toggle" />
-        <label for="tax-toggle">Display total after taxes</label>
-    </div>
-    <div class="responsive-menu__search-box">
-        <form class="navbar__search-form" novalidate method="get" action="/listings/search">
-            <input type="text" id="search-mobile" name="search" class="navbar__search-input" required />
-            <button class="navbar__search-btn btn">Search</button>
-        </form>
-    </div>
+  <a href="/listings"><i class="fa-solid fa-list-ul"></i>Explore</a>
+  <a href="/listings/new"><i class="fa-solid fa-plus"></i>AirSide Your Home</a>
+  <div class="responsive-menu__tax-toggle">
+    <input type="checkbox" class="form-check-input" id="tax-toggle" />
+    <label for="tax-toggle">Display total after taxes</label>
+  </div>
+  <div class="responsive-menu__search-box">
+    <form
+      class="navbar__search-form"
+      novalidate
+      method="get"
+      action="/listings/search"
+    >
+      <input
+        type="text"
+        id="search-mobile"
+        name="search"
+        class="navbar__search-input"
+        required
+      />
+      <button class="navbar__search-btn btn">Search</button>
+    </form>
+  </div>
 </div>
 
 <div class="user-menu">
-    <% if(!currUser){%>
-    <a class="nav-link" href="/signup"><i class="fa-solid fa-user-plus"></i><b>SignUp</b></a>
-    <a class="nav-link" href="/login"><i class="fa-solid fa-right-to-bracket"></i><b>Login</b></a>
-    <%} else {%>
-    <a href="/listings/<%= currUser._id %>/your/listed" class="nav-link"><i class="fa-solid fa-clipboard-list"></i>See Your Listings</a>
-    <div class="line"></div>
-    <a href="/shops/<%= currUser._id %>/your" class="nav-link"><i class="fa-solid fa-list-ol"></i>See Your Shops</a>
-    <div class="line"></div>
-    <a href="/places/<%= currUser._id %>/your" class="nav-link"><i class="fa-solid fa-list-check"></i>See Added Places</a>
-    <div class="line"></div>
-    <a class="nav-link" href="/logout"><i class="fa-solid fa-right-from-bracket"></i><b>LogOut</b></a>
-    <%}%>
+  <% if(!currUser){%>
+  <a class="nav-link" href="/signup"
+    ><i class="fa-solid fa-user-plus"></i><b>SignUp</b></a
+  >
+  <a class="nav-link" href="/login"
+    ><i class="fa-solid fa-right-to-bracket"></i><b>Login</b></a
+  >
+  <%} else {%>
+  <a href="/listings/<%= currUser._id %>/your/listed" class="nav-link"
+    ><i class="fa-solid fa-clipboard-list"></i>See Your Listings</a
+  >
+  <div class="line"></div>
+  <a href="/shops/<%= currUser._id %>/your" class="nav-link"
+    ><i class="fa-solid fa-list-ol"></i>See Your Shops</a
+  >
+  <div class="line"></div>
+  <a href="/places/<%= currUser._id %>/your" class="nav-link"
+    ><i class="fa-solid fa-list-check"></i>See Added Places</a
+  >
+  <div class="line"></div>
+  <a class="nav-link" href="/logout"
+    ><i class="fa-solid fa-right-from-bracket"></i><b>LogOut</b></a
+  >
+  <%}%>
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-  const exploreToggle = document.querySelector('.navbar__link-item[data-dropdown="explore"]');
-  const startUsToggle = document.querySelector('.navbar__link-item[data-dropdown="start-with-us"]');
-  const userToggle = document.querySelector('.navbar__user-icon-div[data-dropdown="user-menu"]');
+    const exploreToggle = document.querySelector(
+      '.navbar__link-item[data-dropdown="explore"]'
+    );
+    const startUsToggle = document.querySelector(
+      '.navbar__link-item[data-dropdown="start-with-us"]'
+    );
+    const userToggle = document.querySelector(
+      '.navbar__user-icon-div[data-dropdown="user-menu"]'
+    );
 
-  const exploreMenu = document.getElementById('explore-menu');
-  const startUsMenu = document.getElementById('start-with-us-menu');
-  const userMenu = document.querySelector('.user-menu');
+    const exploreMenu = document.getElementById("explore-menu");
+    const startUsMenu = document.getElementById("start-with-us-menu");
+    const userMenu = document.querySelector(".user-menu");
 
-  // Function to toggle a dropdown menu
-  function toggleDropdown(menu) {
-    // Hide all other menus first
-    document.querySelectorAll('.navbar__dropdown-menu, .user-menu').forEach(m => {
-      if (m !== menu) {
-        m.classList.remove('visible');
+    // Function to toggle a dropdown menu
+    function toggleDropdown(menu) {
+      // Hide all other menus first
+      document
+        .querySelectorAll(".navbar__dropdown-menu, .user-menu")
+        .forEach((m) => {
+          if (m !== menu) {
+            m.classList.remove("visible");
+          }
+        });
+
+      // Toggle the clicked menu
+      menu.classList.toggle("visible");
+    }
+
+    // Event Listeners for each dropdown
+    exploreToggle.addEventListener("click", () => {
+      toggleDropdown(exploreMenu);
+    });
+
+    startUsToggle.addEventListener("click", () => {
+      toggleDropdown(startUsMenu);
+    });
+
+    userToggle.addEventListener("click", () => {
+      toggleDropdown(userMenu);
+    });
+
+    // Close menus when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".navbar")) {
+        document
+          .querySelectorAll(".navbar__dropdown-menu, .user-menu")
+          .forEach((m) => {
+            m.classList.remove("visible");
+          });
       }
     });
-    
-    // Toggle the clicked menu
-    menu.classList.toggle('visible');
-  }
 
-  // Event Listeners for each dropdown
-  exploreToggle.addEventListener('click', () => {
-    toggleDropdown(exploreMenu);
-  });
-
-  startUsToggle.addEventListener('click', () => {
-    toggleDropdown(startUsMenu);
-  });
-  
-  userToggle.addEventListener('click', () => {
-    toggleDropdown(userMenu);
-  });
-
-  // Close menus when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.navbar')) {
-      document.querySelectorAll('.navbar__dropdown-menu, .user-menu').forEach(m => {
-        m.classList.remove('visible');
+    // Search input trimming
+    document.querySelectorAll(".navbar__search-form").forEach((form) => {
+      form.addEventListener("submit", () => {
+        const searchInput = form.querySelector(".navbar__search-input");
+        searchInput.value = searchInput.value.trim();
       });
-    }
-  });
-
-  // Search input trimming
-  document.querySelectorAll('.navbar__search-form').forEach(form => {
-    form.addEventListener('submit', () => {
-      const searchInput = form.querySelector('.navbar__search-input');
-      searchInput.value = searchInput.value.trim();
     });
   });
-});
 </script>

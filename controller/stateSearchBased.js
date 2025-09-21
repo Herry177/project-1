@@ -10,36 +10,30 @@ module.exports.showTrendingAndFiveStarByState = async (req, res) => {
 
         if (!stateFound) {
             return res.render("searchBased.ejs", { 
-                trendingListings: [],
-                trendingShops: [],
-                trendingPlaces: [],
+                hotels: [],
+                localShops: [],
+                touristPlaces: [],
                 statename: statename 
             });
         }
         
         const stateId = stateFound._id;
-        const [trendingListings, trendingShops, trendingPlaces] = await Promise.all([
+        const [hotels, localShops, touristPlaces] = await Promise.all([
             Listing.find({ 
-                state: stateId, 
-                $or: [{ category: "Trending" }, { category: "5-star" }] 
+                state: stateId,   
             }),
             Shop.find({ 
-                state: stateId, 
-                $or: [{ category: "Trending" }, { category: "5-star" }] 
+                state: stateId,      
             }),
             Place.find({ 
                 state: stateId, 
-                $or: [{ type: "Trending" }, { type: "5-star" }] 
             }),
         ]);
 
-        console.log(trendingListings, trendingPlaces, trendingShops)
+        console.log(hotels, localShops, touristPlaces)
 
-        console.log(trendingListings, trendingPlaces, trendingShops)
-
-        console.log(trendingListings, trendingPlaces, trendingShops)
         // Pass the three separate arrays to the EJS template
-        res.render("searchBased.ejs", { trendingListings, trendingShops, trendingPlaces, statename });
+        res.render("searchBased.ejs", { hotels, localShops, touristPlaces, statename });
 
     } catch (err) {
         console.error("Error fetching items by state:", err);

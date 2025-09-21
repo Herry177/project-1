@@ -8,9 +8,6 @@ const multer = require("multer");
 const { storage } = require("../cloudconfig.js");
 const upload = multer({ storage });
 
-//search route
-router.get("/search", listingController.search)
-
 //privecy policy
 router.get("/privacy", listingController.privacyPolicy);
 

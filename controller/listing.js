@@ -16,53 +16,6 @@ module.exports.index = async (req, res) => {
   res.render("listing/index.ejs", { allListings, allStates, selectedState: req.query.state || "" });
 };
 
-// SEARCH ROUTE
-module.exports.search = async (req, res, next) => {
-  let { search } = req.query;
-
-  if (!isNaN(search)) {
-    search = Number(search);
-    let listings = await Listing.find({ price: search })
-      .populate({ path: "reviews", populate: { path: "author" } })
-      .populate("owner")
-      .populate("state");
-    if (!listings || listings.length === 0) {
-      req.flash("error", "The requested listings doesn't exist or has been deleted");
-      return res.redirect("/listings");
-    }
-
-    if (listings.length > 1) return res.render("listing/search2.ejs", { listings });
-    
-    let sum = 0, count = 0;
-    for (review of listings[0].reviews) { sum += review.rating; count++; }
-    sum = listings[0].reviews.length > 0 ? sum / listings[0].reviews.length : 0;
-    res.render("listing/search.ejs", { listing: listings[0], sum, count });
-  } else {
-    let listings = await Listing.find({
-      $or: [
-        { title: search },
-        { description: search },
-        { location: search },
-        { country: search }
-      ]
-    }).populate({ path: "reviews", populate: { path: "author" } })
-      .populate("owner")
-      .populate("state");
-
-    if (!listings || listings.length === 0) {
-      req.flash("error", "The requested listings doesn't exist or has been deleted");
-      return res.redirect("/listings");
-    }
-
-    if (listings.length > 1) return res.render("listing/search2.ejs", { listings });
-    
-    let sum = 0, count = 0;
-    for (review of listings[0].reviews) { sum += review.rating; count++; }
-    sum = listings[0].reviews.length > 0 ? sum / listings[0].reviews.length : 0;
-    res.render("listing/search.ejs", { listing: listings[0], sum, count });
-  }
-};
-
 // NEW ROUTE
 module.exports.renderNewForm = async (req, res) => {
   const states = await State.find({});
