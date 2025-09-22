@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const shopSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: String,
-  
+  description: { type: String, required: true },
+
   category: {
     type: String,
     enum: ["Trending", "Food", "Handicraft", "Clothing", "Other"],
@@ -21,7 +21,7 @@ const shopSchema = new mongoose.Schema({
   country: {
     type: String,
   },
-  
+
   location: {
     type: String,
   },

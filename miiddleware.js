@@ -1,6 +1,10 @@
 const Listing = require("./modules/listing.js");
+const Place = require("./modules/listing.js");
+const Shop = require("./modules/listing.js");
 const Review = require("./modules/review.js");
 const { listingSchema } = require("./schema.js");
+const { placeSchema } = require("./schema.js");
+const { localShopSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
 module.exports.isLoggedin = (req, res, next) => {
@@ -28,12 +32,32 @@ module.exports.isVerified = (req, res, next) => {
   next();
 };
 
-module.exports.isUser = async (req, res, next) => {
+module.exports.isUserListing = async (req, res, next) => {
   let { id } = req.params;
   let listing = await Listing.findById(id);
   if (!listing.owner._id.equals(res.locals.currUser._id)) {
     req.flash("error", "You don't have permission to make updates.");
     return res.redirect(`/listings/${listing._id}`);
+  }
+  next();
+};
+
+module.exports.isUserPlace = async (req, res, next) => {
+  let { id } = req.params;
+  let place = await Place.findById(id);
+  if (!place.owner._id.equals(res.locals.currUser._id)) {
+    req.flash("error", "You don't have permission to make updates.");
+    return res.redirect(`/places/${place._id}`);
+  }
+  next();
+};
+
+module.exports.isUserLocalShop = async (req, res, next) => {
+  let { id } = req.params;
+  let shop = await Shop.findById(id);
+  if (!shop.owner._id.equals(res.locals.currUser._id)) {
+    req.flash("error", "You don't have permission to make updates.");
+    return res.redirect(`/shop/${shop._id}`);
   }
   next();
 };
@@ -50,6 +74,26 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 
 module.exports.validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errmsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errmsg);
+  } else {
+    next();
+  }
+};
+
+module.exports.validatePlace = (req, res, next) => {
+  const { error } = placeSchema.validate(req.body);
+  if (error) {
+    let errmsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errmsg);
+  } else {
+    next();
+  }
+};
+
+module.exports.validateLocalShop = (req, res, next) => {
+  const { error } = localShopSchema.validate(req.body);
   if (error) {
     let errmsg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errmsg);

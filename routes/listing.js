@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../modules/listing.js");
-const { isLoggedin, isUser, validateListing } = require("../miiddleware.js");
+const { isLoggedin, isUserListing, validateListing } = require("../miiddleware.js");
 const listingController = require("../controller/listing.js");
 const multer = require("multer");
 const { storage } = require("../cloudconfig.js");
@@ -33,7 +33,7 @@ router.get("/new", isLoggedin, listingController.renderNewForm);
 router.get(
   "/:id/edit",
   isLoggedin,
-  isUser,
+  isUserListing,
   wrapAsync(listingController.editListing)
 );
 
@@ -42,13 +42,13 @@ router
   //update route
   .put(
     isLoggedin,
-    isUser,
+    isUserListing,
     upload.array("listing[image][]"),
     validateListing,
     wrapAsync(listingController.updateListing)
   )
   //delete route
-  .delete(isLoggedin, isUser, wrapAsync(listingController.deleteListing))
+  .delete(isLoggedin, isUserListing, wrapAsync(listingController.deleteListing))
   //show route
   .get(wrapAsync(listingController.showListing));
 
