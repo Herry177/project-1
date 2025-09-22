@@ -6,7 +6,7 @@ const shopSchema = new mongoose.Schema({
   
   category: {
     type: String,
-    enum: ["Trending", "5-star", "Food", "Handicraft", "Clothing", "Other"],
+    enum: ["Trending", "Food", "Handicraft", "Clothing", "Other"],
   },
 
   image: [

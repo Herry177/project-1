@@ -58,18 +58,6 @@
         </div>
 
         <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input
-            type="text"
-            name="place[title]"
-            id="title"
-            class="form-control"
-            placeholder="Optional title"
-            value="<%= place.title %>"
-          />
-        </div>
-
-        <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <textarea
             name="place[description]"
@@ -101,27 +89,31 @@
         </div>
 
         <div class="mb-3">
-          <label for="state" class="form-label">State</label>
-          <select name="place[state]" id="state" class="form-select" required>
-            <% states.forEach(state => { %>
-              <option value="<%= state._id %>" <%= place.state.equals(state._id) ? "selected" : "" %>>
-                <%= state.name %>
-              </option>
-            <% }) %>
-          </select>
+          <label for="country" class="form-label">Country</label>
+          <input
+            required
+            type="text"
+            name="place[country]"
+            placeholder="India"
+            id="country"
+            class="form-control"
+            value="<%= place.country %>"
+          />
+          <div class="invalid-feedback">Country name should be valid</div>
         </div>
 
-        <div class="mb-3">
-          <label for="type" class="form-label">Type</label>
-          <select name="place[type]" id="type" class="form-select" required>
-            <option value="Tranding" <%= place.type === "Tranding" ? "selected" : "" %>>Tranding</option>
-            <option value="5-star" <%= place.type === "5-star" ? "selected" : "" %>>5-star</option>
-            <option value="Cultural" <%= place.type === "Cultural" ? "selected" : "" %>>Cultural</option>
-            <option value="Adventure" <%= place.type === "Adventure" ? "selected" : "" %>>Adventure</option>
-            <option value="Historical" <%= place.type === "Historical" ? "selected" : "" %>>Historical</option>
-            <option value="Religious" <%= place.type === "Religious" ? "selected" : "" %>>Religious</option>
-            <option value="Nature" <%= place.type === "Nature" ? "selected" : "" %>>Nature</option>
-          </select>
+         <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <select name="listing[state]" id="state" class="form-select" required>
+                <option value="">Select a state</option>
+                <% for (let s of states) { %>
+                <option value="<%= s._id %>" 
+                    <%= place && place.state && place.state.equals(s._id) ? "selected" : "" %>>
+                    <%= s.name %>
+                </option>
+                <% } %>
+            </select>
+        <div class="invalid-feedback">Please select a state</div>
         </div>
 
         <div class="mb-3">
@@ -138,17 +130,16 @@
         </div>
 
         <div class="mb-3">
-            <label for="state" class="form-label">State</label>
-            <select name="listing[state]" id="state" class="form-select" required>
-                <option value="">Select a state</option>
-                <% for (let s of states) { %>
-                <option value="<%= s._id %>" 
-                    <%= place && place.state && place.state.equals(s._id) ? "selected" : "" %>>
-                    <%= s.name %>
-                </option>
-                <% } %>
-            </select>
-        <div class="invalid-feedback">Please select a state</div>
+          <label for="type" class="form-label">Type</label>
+          <select name="place[type]" id="type" class="form-select" required>
+            <option value="Trending" <%= place.type === "Trending" ? "selected" : "" %>>Trending</option>
+            <option value="5-star" <%= place.type === "5-star" ? "selected" : "" %>>5-star</option>
+            <option value="Cultural" <%= place.type === "Cultural" ? "selected" : "" %>>Cultural</option>
+            <option value="Adventure" <%= place.type === "Adventure" ? "selected" : "" %>>Adventure</option>
+            <option value="Historical" <%= place.type === "Historical" ? "selected" : "" %>>Historical</option>
+            <option value="Religious" <%= place.type === "Religious" ? "selected" : "" %>>Religious</option>
+            <option value="Nature" <%= place.type === "Nature" ? "selected" : "" %>>Nature</option>
+          </select>
         </div>
 
         <button class="btn btn-dark add-btn mt-3">Update Place</button>

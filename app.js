@@ -147,7 +147,7 @@ app.get("/", async (req, res) => {
                 $or: [{ category: "Trending" }, { category: "5-star" }]
             }),
             Shop.find({
-                $or: [{ category: "Trending" }, { category: "5-star" }]
+                $or: [{ category: "Trending" }]
             }),
             Place.find({
                 $or: [{ type: "Trending" }, { type: "5-star" }]

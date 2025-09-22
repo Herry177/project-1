@@ -135,6 +135,19 @@
       </div>
 
       <div class="mb-3">
+        <label for="state" class="form-label">State</label>
+        <select name="listing[state]" id="state" class="form-select" required>
+          <option value="">Select a state</option>
+          <% for (let s of states) { %>
+            <option value="<%= s._id %>" 
+            <%= listing && listing.state && listing.state.equals(s._id) ? "selected" : "" %>>
+            <%= s.name %>
+            </option>
+          <% } %>
+        </select>
+      <div class="invalid-feedback">Please select a state</div>
+
+      <div class="mb-3 mt-3">
         <label for="location" class="form-label">Location</label>
         <input
           type="text"
@@ -167,19 +180,7 @@
         </select>
         <div class="invalid-feedback">category should be valid</div>
       </div>
-
-      <div class="mb-3">
-        <label for="state" class="form-label">State</label>
-        <select name="listing[state]" id="state" class="form-select" required>
-          <option value="">Select a state</option>
-          <% for (let s of states) { %>
-            <option value="<%= s._id %>" 
-            <%= listing && listing.state && listing.state.equals(s._id) ? "selected" : "" %>>
-            <%= s.name %>
-            </option>
-          <% } %>
-        </select>
-      <div class="invalid-feedback">Please select a state</div>
+ 
 </div>
 
 

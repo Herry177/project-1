@@ -32,7 +32,7 @@
     </div>
 
     <!-- Main Form -->
-    <div id="form-main-container2" style="display: none;">
+    <div id="form-main-container2" style="display: none">
       <form
         method="post"
         action="/places"
@@ -75,26 +75,25 @@
           />
         </div>
 
-         <div class="mb-3">
-            <label for="country" class="form-label">Country</label>
-            <input
-              required
-              type="text"
-              name="place[country]"
-              placeholder="India"
-              id="country"
-              class="form-control"
-            />
-            <div class="invalid-feedback">Country name should be valid</div>
-          </div>
+        <div class="mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input
+            required
+            type="text"
+            name="place[country]"
+            placeholder="India"
+            id="country"
+            class="form-control"
+          />
+          <div class="invalid-feedback">Country name should be valid</div>
         </div>
-                
+
         <div class="mb-3">
           <label for="state" class="form-label">State</label>
           <select name="place[state]" id="state" class="form-select" required>
             <option value="" disabled selected>Select a State</option>
             <% for (let s of states) { %>
-              <option value="<%= s._id %>"><%= s.name %></option>
+            <option value="<%= s._id %>"><%= s.name %></option>
             <% } %>
           </select>
           <div class="invalid-feedback">Please select a state</div>
@@ -112,7 +111,6 @@
           />
         </div>
 
-        
         <div class="mb-3">
           <label for="type" class="form-label">Type</label>
           <select name="place[type]" id="type" class="form-select" required>
