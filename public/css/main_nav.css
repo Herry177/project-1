@@ -1,233 +1,239 @@
 /* --- Global Reset & Base Styles --- */
 body,
 html {
-  margin: 0;
-  padding: 0;
-  font-family: "Plus Jakarta Sans", serif ;
+    margin: 0;
+    padding: 0;
+    font-family: "Plus Jakarta Sans", sans-serif; /* Using a single font for the entire site */
 }
 
 a {
-  text-decoration: none;
-  color: #000;
+    text-decoration: none;
+    color: #000;
 }
 
 /* --- Keyframes for Animation --- */
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+    }
 }
 
 /* --- Navbar Styling --- */
 nav {
-  background-color: #f8f8f8;
-  height: 6rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0.5rem;
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  width: 100%;
+    background-color: #f8f8f8;
+    height: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: 100%;
 }
 
 .nav-container1 {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+    width: 51%;
+    display: flex;
+    align-items: center;
+    
 }
 
 .logo-group {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
-.logo-link i {
-  font-size: 2.75rem;
-  color: #333333;
-  margin-right: 0.5rem;
-  animation: spin 1s ease-in-out;
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 5rem;
+    width: auto;
+    transition: all 0.3s ease;
+    animation: spin 1s ease-in-out forwards;
 }
 
 .logo-text {
-  font-size: 2.3rem;
-  font-family: "Great Vibes", cursive;
-  font-weight: 400;
-  color: #1e3a8a;
-  transition: all 0.3s ease;
+    font-size: 2.3rem;
+    font-family: "Plus Jakarta Sans", sans-serif; /* Updated to Plus Jakarta Sans for consistency */
+    font-weight: 700; /* Increased font weight to make it stand out */
+    margin-bottom: 0.25rem;
+    color: #1e3a8a;
+    transition: all 0.3s ease;
 }
 
 .nav-links {
-  display: flex;
-  gap: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
 }
 
 .nav-links a {
-  font-size: 1.3rem;
-  color: #333333;
-  transition: all 0.3s ease;
+    font-size: 1.3rem;
+    color: #333333;
+    transition: all 0.3s ease;
 }
 
 .nav-links a:hover,
 .logo-text:hover {
-  color: #2bc4a5;
-  transform: scale(1.02);
+    color: #2bc4a5;
+    transform: scale(1.02);
 }
 
 /* --- User Menu Styling --- */
 .nav-container2 {
-  position: relative;
-  margin-right: 1.25rem;
+    position: relative;
+    margin-right: 1.25rem;
 }
 
 #user-menu-toggle i {
-  font-size: 2.25rem;
-  color: #333333;
-  cursor: pointer;
+    font-size: 2.25rem;
+    color: #333333;
+    cursor: pointer;
 }
 
 .user-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-20px);
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s;
 }
 
 .user-dropdown-menu.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .user-menu-items {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  width: 15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 15rem;
 }
 
 .user-menu-items a {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 0.3rem;
-  transition: all 0.2s ease-in-out;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    transition: all 0.2s ease-in-out;
 }
 
 .user-menu-items a:hover {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 .menu-divider {
-  height: 1px;
-  background-color: #dcdcdc;
-  margin: 0.5rem 0;
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 0.5rem 0;
 }
 
+/* --- Other Sections --- */
 .map_container {
-  margin-left: 1rem;
-  width: 40%;
+    margin-left: 1rem;
+    width: 40%;
 }
 
-/* --- Map Section Styling --- */
 .map-section {
-  padding: 3rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(100vh - 6rem);
-  background-color: #f0f2f5;
-  /* background-image: url("path/to/your/image.png");
-  background-size: cover; */
-  background-position: center center;
-  background-attachment: fixed;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 6rem);
+    background-color: #f0f2f5;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 .map-title {
-  font-family: "Georgia", serif;
-  font-size: 2.5rem;
-  color: #333333;
-  margin-top: 0;
-  padding-top: 2rem;
-  text-align: center;
-  max-width: 100%;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333333;
+    margin-top: 0;
+    padding-top: 2rem;
+    text-align: center;
+    max-width: 100%;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
 }
 
 .map-subtitle {
-  font-family: "Inter", sans-serif;
-  font-size: 1.2rem;
-  color: #666666;
-  margin-bottom: 2rem;
-  text-align: center;
-  max-width: 70%;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 1.2rem;
+    color: #666666;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 70%;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
 }
 
 .map-interactive-container {
-  margin-top: 1rem;
-  width: 80%;
-  max-width: 1000px;
-  background-color: rgba(255, 255, 255, 0.85);
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    margin-top: 1rem;
+    width: 80%;
+    max-width: 1000px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 svg {
-  width: 100%;
-  max-width: 800px;
-  height: auto;
-  border: none;
-  flex: 2;
-
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border: none;
+    flex: 2;
 }
 
 .land {
-  fill: #5d6d7e;
-  stroke: #ffffff;
-  stroke-width: 0.5;
-  cursor: pointer;
-  transition: fill 0.3s;
+    fill: #5d6d7e;
+    stroke: #ffffff;
+    stroke-width: 0.5;
+    cursor: pointer;
+    transition: fill 0.3s;
 }
 
 .land:hover {
-  fill: #2980b9;
+    fill: #2980b9;
 }
 
 .selected {
-  fill: #27ae60 !important;
+    fill: #27ae60 !important;
 }
 
-/* --- Map and Form Container --- */
-.bg_container{
-  background: url(../Gemini_Generated_Image_e2jfcpe2jfcpe2jf.png);
-  background-size: cover;
-  margin-top: 5rem;
-  
-} 
+.bg_container {
+    background: url(../Gemini_Generated_Image_e2jfcpe2jfcpe2jf.png);
+    background-size: cover;
+    margin-top: 5rem;
+}
 
 .map-and-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
-  gap: 3rem;
-  
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    gap: 3rem;
 }
 
 .map-interactive-section {
@@ -238,8 +244,8 @@ svg {
 }
 
 .search-form-section {
-    flex: 1; 
-    max-width: 30%; 
+    flex: 1;
+    max-width: 30%;
     margin-top: 5rem;
     background-color: #ffffff;
     border-radius: 12px;
@@ -248,198 +254,193 @@ svg {
 }
 
 .search-form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #555;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #555;
 }
 
 .form-control {
-  padding: 0.75rem;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+    padding: 0.75rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
 .form-control:focus {
-  border-color: #2bc4a5;
-  outline: none;
+    border-color: #2bc4a5;
+    outline: none;
 }
 
 .search-btn {
-  background-color: #1e3a8a;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #1e3a8a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .search-btn:hover {
-  background-color: #2bc4a5;
-  transform: translateY(-2px);
+    background-color: #2bc4a5;
+    transform: translateY(-2px);
 }
 
-.container{
-  margin-bottom: 8rem;
+.container {
+    margin-bottom: 8rem;
 }
 
-/* --- Updated Carousel Styles for tighter spacing and 3 cards --- */
-      .carousel-section {
-        margin-top: 2rem;
-        padding: 1rem;
-      }
+.carousel-section {
+    margin-top: 2rem;
+    padding: 1rem;
+}
 
-      .carousel-container {
-        position: relative;
-        overflow: hidden;
-      }
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+}
 
-      .carousel-inner {
-        display: flex;
-        width: max-content;
-        transition: transform 1s ease-in-out;
-        will-change: transform;
-      }
+.carousel-inner {
+    display: flex;
+    width: max-content;
+    transition: transform 1s ease-in-out;
+    will-change: transform;
+}
 
-      .carousel-card {
-        display: flex;
-        flex-direction: column;
-        /* The size of the card is now fixed */
-        width: 320px;
-        height: 350px;
-        flex-shrink: 0;
-        background-color: #ffffff;
-        border-radius: 1.25rem;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
-        position: relative;
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-         box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        cursor: pointer;
-        /* Reduced margin to create less space between cards */
-        margin: 0.6rem 80px;
-      }
+.carousel-card {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 350px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    margin: 0.6rem 80px;
+}
 
-      .carousel-card:hover {
-        transform: scale(1.05); /* Increased scale on hover */
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Deeper shadow on hover */
-      }
+.carousel-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
 
-      .card-image-container {
-        position: relative;
-        width: 100%;
-        height: 280px; /* Fixed height for the image container */
-        overflow: hidden;
-      }
+.card-image-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+}
 
-      .card-img-top {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* This is crucial for maintaining image aspect ratio without distortion */
-        transition: transform 0.3s ease-in-out;
-      }
+.card-img-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
 
-      .carousel-card:hover .card-img-top {
-        transform: scale(1.1); /* Subtle zoom effect on image */
-      }
+.carousel-card:hover .card-img-top {
+    transform: scale(1.1);
+}
 
-      .listing-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
+.listing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
-      .carousel-card:hover .listing-overlay {
-        opacity: 1;
-      }
+.carousel-card:hover .listing-overlay {
+    opacity: 1;
+}
 
-      .overlay-text-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        color: #fff;
-      }
+.overlay-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
 
-      .overlay-text {
-        font-size: 1.25rem;
-        font-weight: 600;
-      }
+.overlay-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
 
-      /* New hover effect for the headings */
-      .section-headline {
-        position: relative;
-        font-size: 2rem;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 1.5rem;
-        transition: color 0.3s ease;
-        cursor: pointer;
-      }
+.section-headline {
+    position: relative;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
 
-      .section-headline:hover {
-        color: #2bc4a5;
-      }
+.section-headline:hover {
+    color: #2bc4a5;
+}
 
-      .section-headline::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -5px;
-        width: 100%;
-        height: 4px;
-        background-color: #2bc4a5;
-        transform: scaleX(0);
-        transform-origin: bottom right;
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
+.section-headline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 4px;
+    background-color: #2bc4a5;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-      .section-headline:hover::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
+.section-headline:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
 
-      /* Scrolling Text Section Styles */
-      .scrolling-text-section {
-        overflow: hidden;
-        white-space: nowrap;
-        background-color: #2bc4a5;
-        padding: 0.5rem 0;
-        margin: 0rem 0;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
+.scrolling-text-section {
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #2bc4a5;
+    padding: 0.5rem 0;
+    margin: 0rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-      .scrolling-text {
-        display: inline-block;
-        font-size: 4vw;
-        font-weight: 900;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        padding: 0 4rem;
-        will-change: transform;
-      }
+.scrolling-text {
+    display: inline-block;
+    font-size: 4vw;
+    font-weight: 900;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0 4rem;
+    will-change: transform;
+}

@@ -30,8 +30,6 @@ module.exports.showTrendingAndFiveStarByState = async (req, res) => {
             }),
         ]);
 
-        console.log(hotels, localShops, touristPlaces)
-
         // Pass the three separate arrays to the EJS template
         res.render("searchBased.ejs", { hotels, localShops, touristPlaces, statename });
 

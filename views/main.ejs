@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/main_nav.css">
+    <link rel="stylesheet" href="/css/main_nav.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
@@ -25,7 +25,11 @@
       <div class="nav-container1">
         <div class="logo-group">
           <a href="/" class="logo-link">
-            <i class="fa-regular fa-compass"></i>
+            <img
+              src="https://res.cloudinary.com/dtzykwteg/image/upload/v1758542292/Travel_Adventure_Logo_Design_jcfhzw.png"
+              alt="Trippeo Logo"
+              class="logo-image"
+            />
           </a>
           <a href="/" class="logo-text">Trippeo</a>
         </div>
@@ -326,7 +330,9 @@
 
     <div class="scrolling-text-section">
       <div class="scrolling-text">
-        Discover India's Gems • Find Your Next Adventure • Explore New Horizons • Start Your Journey • Discover India's Gems • Find Your Next Adventure • Explore New Horizons • Start Your Journey
+        Discover India's Gems • Find Your Next Adventure • Explore New Horizons
+        • Start Your Journey • Discover India's Gems • Find Your Next Adventure
+        • Explore New Horizons • Start Your Journey
       </div>
     </div>
 
@@ -337,85 +343,103 @@
         <div id="listings-carousel" class="carousel-container">
           <div class="carousel-inner">
             <% trendingListings.forEach((listing) => { %>
-              <div class="carousel-item">
-                <a href="/listings/<%= listing._id %>" class="listing-link">
-                  <div class="carousel-card">
-                    <div class="card-image-container">
-                      <img src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= listing.title %>" class="card-img-top"/>
-                      <div class="listing-overlay">
-                        <div class="overlay-text-container">
-                          <span class="overlay-text">See Details</span>
-                        </div>
+            <div class="carousel-item">
+              <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="carousel-card">
+                  <div class="card-image-container">
+                    <img
+                      src="<%= listing.image[0] ? listing.image[0].url : 'https://placehold.co/400x300' %>"
+                      alt="<%= listing.title %>"
+                      class="card-img-top"
+                    />
+                    <div class="listing-overlay">
+                      <div class="overlay-text-container">
+                        <span class="overlay-text">See Details</span>
                       </div>
-                  </div>
-                    <div class="p-4">
-                      <h3 class="text-lg font-semibold text-gray-900 truncate"><%= listing.title %></h3>
-                      <p class="text-gray-700 mt-1"><%= listing.price ? '₹' + listing.price.toLocaleString("en-IN") + ' / night' : 'Price not available' %> <i class="tax-info">&nbsp;&nbsp; +18% GST</i></p>
                     </div>
                   </div>
-                </a>
-              </div>
+                  <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 truncate">
+                      <%= listing.title %>
+                    </h3>
+                    <p class="text-gray-700 mt-1">
+                      <%= listing.price ? '₹' +
+                      listing.price.toLocaleString("en-IN") + ' / night' :
+                      'Price not available' %>
+                      <i class="tax-info">&nbsp;&nbsp; +18% GST</i>
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
             <% }) %>
           </div>
         </div>
       </div>
-      <% } %>
-
-      <% if (trendingPlaces && trendingPlaces.length > 0) { %>
+      <% } %> <% if (trendingPlaces && trendingPlaces.length > 0) { %>
       <div class="carousel-section">
         <h2 class="section-headline">Trending Tourist Places Showcase</h2>
         <div id="places-carousel" class="carousel-container">
           <div class="carousel-inner">
             <% trendingPlaces.forEach((place) => { %>
-              <div class="carousel-item">
-                <a href="/places/<%= place._id %>" class="listing-link">
-                  <div class="carousel-card">
-                    <div class="card-image-container">
-                      <img src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= place.place_name %>" class="card-img-top"/>
-                      <div class="listing-overlay">
-                        <div class="overlay-text-container">
-
-                          <span class="overlay-text">See Details</span>
-                        </div>
+            <div class="carousel-item">
+              <a href="/places/<%= place._id %>" class="listing-link">
+                <div class="carousel-card">
+                  <div class="card-image-container">
+                    <img
+                      src="<%= place.image[0] ? place.image[0].url : 'https://placehold.co/400x300' %>"
+                      alt="<%= place.place_name %>"
+                      class="card-img-top"
+                    />
+                    <div class="listing-overlay">
+                      <div class="overlay-text-container">
+                        <span class="overlay-text">See Details</span>
                       </div>
                     </div>
-                    <div class="p-4">
-                      <h3 class="text-lg font-semibold text-gray-900 truncate"><%= place.place_name %></h3>
-                      <p class="text-gray-700 mt-1"><%= place.type %></p>
-                    </div>
                   </div>
-                </a>
-              </div>
+                  <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 truncate">
+                      <%= place.place_name %>
+                    </h3>
+                    <p class="text-gray-700 mt-1"><%= place.type %></p>
+                  </div>
+                </div>
+              </a>
+            </div>
             <% }) %>
           </div>
         </div>
       </div>
-      <% } %>
-
-      <% if (trendingShops && trendingShops.length > 0) { %>
+      <% } %> <% if (trendingShops && trendingShops.length > 0) { %>
       <div class="carousel-section">
         <h2 class="section-headline">Trending Shops Showcase</h2>
         <div id="shops-carousel" class="carousel-container">
           <div class="carousel-inner">
             <% trendingShops.forEach((shop) => { %>
-              <div class="carousel-item">
-                <a href="/shops/<%= shop._id %>" class="listing-link">
-                  <div class="carousel-card">
-                    <div class="card-image-container">
-                      <img src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>" alt="<%= shop.name %>" class="card-img-top"/>
-                      <div class="listing-overlay">
-                        <div class="overlay-text-container">
-                          <span class="overlay-text">See Details</span>
-                        </div>
+            <div class="carousel-item">
+              <a href="/shops/<%= shop._id %>" class="listing-link">
+                <div class="carousel-card">
+                  <div class="card-image-container">
+                    <img
+                      src="<%= shop.image[0] ? shop.image[0].url : 'https://placehold.co/400x300' %>"
+                      alt="<%= shop.name %>"
+                      class="card-img-top"
+                    />
+                    <div class="listing-overlay">
+                      <div class="overlay-text-container">
+                        <span class="overlay-text">See Details</span>
                       </div>
                     </div>
-                    <div class="p-4">
-                      <h3 class="text-lg font-semibold text-gray-900 truncate"><%= shop.name %></h3>
-                      <p class="text-gray-700 mt-1"><%= shop.category %> Shop</p>
-                    </div>
                   </div>
-                </a>
-              </div>
+                  <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 truncate">
+                      <%= shop.name %>
+                    </h3>
+                    <p class="text-gray-700 mt-1"><%= shop.category %> Shop</p>
+                  </div>
+                </div>
+              </a>
+            </div>
             <% }) %>
           </div>
         </div>
@@ -479,8 +503,8 @@
           }
         });
 
-        const scrollingText = document.querySelector('.scrolling-text');
-        window.addEventListener('scroll', () => {
+        const scrollingText = document.querySelector(".scrolling-text");
+        window.addEventListener("scroll", () => {
           const scrollY = window.scrollY;
           // Adjust the multiplier to change the speed of the horizontal scroll
           const translateValue = -scrollY * 0.5;
@@ -491,12 +515,12 @@
           const carousel = document.getElementById(carouselId);
           if (!carousel) return;
 
-          const inner = carousel.querySelector('.carousel-inner');
-          const items = inner.querySelectorAll('.carousel-item');
+          const inner = carousel.querySelector(".carousel-inner");
+          const items = inner.querySelectorAll(".carousel-item");
           const totalCards = items.length;
 
           if (totalCards <= 3) {
-            inner.style.justifyContent = 'center';
+            inner.style.justifyContent = "center";
             return;
           }
 
@@ -510,22 +534,26 @@
           }
 
           const getCardWidth = () => {
-            const item = inner.querySelector('.carousel-item');
+            const item = inner.querySelector(".carousel-item");
             if (!item) return 0;
             const style = window.getComputedStyle(item);
-            return item.offsetWidth + parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+            return (
+              item.offsetWidth +
+              parseFloat(style.marginLeft) +
+              parseFloat(style.marginRight)
+            );
           };
 
           const moveCarousel = () => {
             currentIndex++;
             const slideDistance = currentIndex * getCardWidth();
 
-            inner.style.transition = 'transform 1s ease-in-out';
+            inner.style.transition = "transform 1s ease-in-out";
             inner.style.transform = `translateX(${-slideDistance}px)`;
 
             if (currentIndex >= totalCards) {
               setTimeout(() => {
-                inner.style.transition = 'none';
+                inner.style.transition = "none";
                 inner.style.transform = `translateX(0)`;
                 currentIndex = 0;
               }, 1000);
@@ -534,18 +562,18 @@
 
           intervalId = setInterval(moveCarousel, 4000);
 
-          window.addEventListener('resize', () => {
+          window.addEventListener("resize", () => {
             clearInterval(intervalId);
-            inner.style.transition = 'none';
-            inner.style.transform = 'translateX(0)';
+            inner.style.transition = "none";
+            inner.style.transform = "translateX(0)";
             currentIndex = 0;
             intervalId = setInterval(moveCarousel, 4000);
           });
         }
 
-        startCarouselAnimation('listings-carousel');
-        startCarouselAnimation('places-carousel');
-        startCarouselAnimation('shops-carousel');
+        startCarouselAnimation("listings-carousel");
+        startCarouselAnimation("places-carousel");
+        startCarouselAnimation("shops-carousel");
       });
     </script>
   </body>
