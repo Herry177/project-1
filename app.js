@@ -89,6 +89,7 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://project-1-vp72.onrender.com/auth/google/callback"
   },
+  
   async function(accessToken, refreshToken, profile, done) {
     try {
       // 1. Check if user exists with googleId
