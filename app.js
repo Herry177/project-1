@@ -33,7 +33,7 @@ const placeRoute = require("./routes/place.js");
 const placeReview = require("./routes/placeReview.js");
 const stateRoute = require("./routes/state.js");
 
-const dbUrl = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL;
 
 // DB Connection
 main()
