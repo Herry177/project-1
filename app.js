@@ -87,7 +87,7 @@ const sessionOptions = {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.ATLASDB_URL
+    callbackURL:"https://project-1-vp72.onrender.com/auth/google/callback"
   },
   
   async function(accessToken, refreshToken, profile, done) {
