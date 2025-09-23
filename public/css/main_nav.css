@@ -444,3 +444,138 @@ svg {
     padding: 0 4rem;
     will-change: transform;
 }
+
+.for-925{
+    display: none;
+}
+
+@media (max-width: 925px) {
+  body,
+  html {
+    font-size: 14px; 
+    overflow-x: hidden;
+  }
+
+  .not-925{
+    display: none !important;
+  }
+  
+  nav {
+    height: 4rem; 
+    padding: 0 0.25rem; 
+  }
+
+  .nav-container1 {
+    width: 54%; 
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .logo-group{
+    width: 60%;
+  }
+
+  .logo-image {
+    height: 3rem;
+  }
+
+  .logo-text {
+    font-size: 1.3rem; 
+    margin-bottom: 0.15rem;
+  }
+
+  .for-925{
+    width: 20%;
+  }
+
+  .nav-links {
+    display: flex; 
+    margin-top: 0.2rem;
+    
+  }
+
+  .nav-links a{
+    font-size: 0.9rem;
+  }
+
+  .nav-container2 {
+    margin-right: 0.5rem; 
+  }
+
+  #user-menu-toggle i {
+    margin-top: 0.4rem;
+    font-size: 1.7rem; 
+  }
+
+  .bg_container {
+    margin-top: 4rem; /* Adjust margin to account for smaller navbar */
+  }
+
+  .map_container{
+    width: 100%;
+    margin-left: 6rem;
+  }
+
+  .map-and-form-container {
+    flex-direction: column; /* Stack map and form vertically */
+    padding: 1rem;
+    gap: 1rem; /* Reduce gap between sections */
+  }
+
+  .map-interactive-section,
+  .search-form-section {
+    max-width: 100%; /* Make sections take full width */
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  .search-form-section {
+    margin: 0 auto;
+    margin-bottom: 1.8rem;
+  }
+
+  .map-title {
+    font-size: 1.8rem; /* Reduce map title font size */
+    padding-top: 1rem;
+  }
+
+  .map-subtitle {
+    font-size: 0.9rem; /* Reduce subtitle font size */
+    max-width: 90%;
+  }
+
+  /* --- Search Form --- */
+  .search-form {
+    width: 280px;
+    gap: 1rem; 
+  }
+
+  .search-btn {
+    padding: 0.75rem 1.5rem; /* Reduce button padding */
+    font-size: 1rem;
+  }
+
+  /* --- Carousel Section --- */
+  .carousel-card {
+    width: 280px; /* Reduce card width */
+    height: 300px; /* Reduce card height */
+    margin: 0.5rem 5rem; /* Reduce margin to fit more on screen */
+  }
+
+  .card-image-container {
+    height: 200px; /* Reduce image container height */
+  }
+
+  .overlay-text {
+    font-size: 1rem; /* Reduce overlay text size */
+  }
+
+  .section-headline {
+    font-size: 1.5rem; /* Reduce headline size */
+  }
+
+  /* --- Scrolling Text --- */
+  .scrolling-text {
+    font-size: 7vw; /* Adjust font size to be relative to viewport width */
+  }
+}

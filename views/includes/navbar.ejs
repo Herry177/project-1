@@ -1,47 +1,44 @@
 <nav class="navbar">
   <div class="navbar__main-container">
-    <div class="navbar__logo-group">
-      <a href="/" class="navbar__logo-link"> 
-        <img
-          src="https://res.cloudinary.com/dtzykwteg/image/upload/v1758542292/Travel_Adventure_Logo_Design_jcfhzw.png"
-          alt="Trippeo Logo"
-          class="logo-image"
-        />
-      </a>
-      <a href="/" class="navbar__logo-link">
-        <p class="navbar__logo-text">Trippeo</p>
-      </a>
-    </div>
+    <div class="navbar-logo-link">
+      <div class="navbar__logo-group">
+        <a href="/" class="navbar__logo-link">
+          <img
+            src="https://res.cloudinary.com/dtzykwteg/image/upload/v1758542292/Travel_Adventure_Logo_Design_jcfhzw.png"
+            alt="Trippeo Logo"
+            class="logo-image"
+          />
+        </a>
+        <a href="/" class="navbar__logo-link">
+          <p class="navbar__logo-text">Trippeo</p>
+        </a>
+      </div>
 
-    <div class="navbar__links-container">
       <div class="navbar__main-links">
         <span class="navbar__link-item" data-dropdown="explore">Explore</span>
         <span class="navbar__link-item" data-dropdown="start-with-us"
           >Start With Us</span
         >
       </div>
+    </div>
+    <div class="navbar__dropdown-menu" id="explore-menu">
+      <a href="/listings"><i class="fa-solid fa-hotel"></i> Hotels</a>
+      <a href="/shops"><i class="fa-solid fa-shop"></i> Explore Local Shops</a>
+      <a href="/places"
+        ><i class="fa-solid fa-torii-gate"></i> Tourist Places</a
+      >
+    </div>
+    <div class="navbar__dropdown-menu" id="start-with-us-menu">
+      <a href="/listings/new"
+        ><i class="fa-solid fa-building"></i> List Your Hotel</a
+      >
+      <a href="/shops/new"><i class="fa-solid fa-store"></i> List Your shop</a>
+      <a href="/places/new"
+        ><i class="fa-solid fa-dungeon"></i> List Tourist Place</a
+      >
+    </div>
 
-      <div class="navbar__dropdown-menu" id="explore-menu">
-        <a href="/listings"><i class="fa-solid fa-hotel"></i> Hotels</a>
-        <a href="/shops"
-          ><i class="fa-solid fa-shop"></i> Explore Local Shops</a
-        >
-        <a href="/places"
-          ><i class="fa-solid fa-torii-gate"></i> Tourist Places</a
-        >
-      </div>
-      <div class="navbar__dropdown-menu" id="start-with-us-menu">
-        <a href="/listings/new"
-          ><i class="fa-solid fa-building"></i> List Your Hotel</a
-        >
-        <a href="/shops/new"
-          ><i class="fa-solid fa-store"></i> List Your shop</a
-        >
-        <a href="/places/new"
-          ><i class="fa-solid fa-dungeon"></i> List Tourist Place</a
-        >
-      </div>
-
+    <div class="navbar-search-user">
       <div class="navbar__search-box">
         <form
           class="navbar__search-form"
@@ -69,42 +66,16 @@
           <button type="submit" class="navbar__search-btn btn">Search</button>
         </form>
       </div>
-    </div>
 
-    <div class="navbar__user-options">
-      <div class="navbar__user-icon-div" data-dropdown="user-menu">
-        <i class="fa-solid fa-bars"></i>
-        <i class="fa-regular fa-circle-user"></i>
+      <div class="navbar__user-options">
+        <div class="navbar__user-icon-div" data-dropdown="user-menu">
+          <i class="fa-solid fa-bars"></i>
+          <i class="fa-regular fa-circle-user"></i>
+        </div>
       </div>
     </div>
   </div>
 </nav>
-
-<div class="responsive-menu">
-  <a href="/listings"><i class="fa-solid fa-list-ul"></i>Explore</a>
-  <a href="/listings/new"><i class="fa-solid fa-plus"></i>AirSide Your Home</a>
-  <div class="responsive-menu__tax-toggle">
-    <input type="checkbox" class="form-check-input" id="tax-toggle" />
-    <label for="tax-toggle">Display total after taxes</label>
-  </div>
-  <div class="responsive-menu__search-box">
-    <form
-      class="navbar__search-form"
-      novalidate
-      method="get"
-      action="/listings/search"
-    >
-      <input
-        type="text"
-        id="search-mobile"
-        name="search"
-        class="navbar__search-input"
-        required
-      />
-      <button class="navbar__search-btn btn">Search</button>
-    </form>
-  </div>
-</div>
 
 <div class="user-menu">
   <% if(!currUser){%>
@@ -131,6 +102,34 @@
     ><i class="fa-solid fa-right-from-bracket"></i><b>LogOut</b></a
   >
   <%}%>
+</div>
+
+<div class="navbar__search-box-925">
+  <form
+    class="navbar__search-form-925"
+    novalidate
+    method="get"
+    action="/search"
+  >
+    <!-- Type selection dropdown -->
+    <select name="type" class="navbar__search-type">
+      <option disabled selected>Select type</option>
+      <option value="listings">Listing</option>
+      <option value="shops">Local Shop</option>
+      <option value="places">Tourist Place</option>
+    </select>
+
+    <input
+      type="text"
+      id="search"
+      name="search"
+      class="navbar__search-input"
+      placeholder="Search..."
+      required
+    />
+
+    <button type="submit" class="navbar__search-btn btn">Search</button>
+  </form>
 </div>
 
 <script>
