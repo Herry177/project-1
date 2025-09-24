@@ -10,7 +10,7 @@ const ExpressError = require("./utils/ExpressError.js");
 module.exports.isLoggedin = (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.redirectUrl = req.originalUrl;
-    req.flash("error", "You must be logged in for Wanderlust");
+    req.flash("error", "You must be logged in for Trippeo");
     return res.redirect("/login");
   }
   next();

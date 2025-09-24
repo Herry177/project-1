@@ -60,7 +60,7 @@ module.exports.loginFormRender = (req, res) => {
 
 // --- LOGIN POST ---
 module.exports.loginPostRoute = (req, res) => {
-    req.flash("success", "Welcome Back!");
+    req.flash("success", "Welcome Back To Trippeo!");
     let redirect = res.locals.redirectUrl || "/";
     res.redirect(redirect);
 };
