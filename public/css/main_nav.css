@@ -164,7 +164,7 @@ nav {
 
 .map-title {
   font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #333333;
   margin-top: 0;
@@ -242,10 +242,12 @@ svg {
   align-items: center;
 }
 
+/* This is the primary fix. It sets the search form's width manually and prevents flexbox from overriding it. */
 .search-form-section {
-  flex: 1;
-  max-width: 30%;
-  margin-top: 8rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 30%;
+  margin-top: 6rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -448,8 +450,24 @@ svg {
   display: none;
 }
 
+.note {
+  text-align: center;
+  color: #27ae60;
+}
+
+/* --- Media Queries --- */
+
 @media (max-width: 1250px) {
   .nav-container1 {
+    width: 60%;
+  }
+
+  .search-form-section {
+    width: 35%; /* This width will now apply correctly */
+    margin-top: 7rem;
+  }
+  .map_container {
+    margin-left: 1rem;
     width: 60%;
   }
 }
@@ -457,6 +475,15 @@ svg {
 @media (max-width: 1100px) {
   .nav-container1 {
     width: 70%;
+  }
+
+  .search-form-section {
+    width: 37%; /* This width will now apply correctly */
+    margin-top: 7rem;
+  }
+
+  .map_container {
+    width: 60%;
   }
 }
 
@@ -525,7 +552,7 @@ svg {
 
   .map_container {
     width: 100%;
-    margin-left: 6rem;
+    margin-left: 14rem;
   }
 
   .map-and-form-container {
@@ -534,21 +561,16 @@ svg {
     gap: 1rem; /* Reduce gap between sections */
   }
 
-  .map-interactive-section,
-  .search-form-section {
+  .map-interactive-section {
     max-width: 100%; /* Make sections take full width */
     margin-top: 1rem;
     padding: 1rem;
   }
 
-  .search-form-section {
-    margin: 0 auto;
-    margin-bottom: 1.8rem;
-  }
-
   .map-title {
-    font-size: 1.8rem; /* Reduce map title font size */
-    padding-top: 1rem;
+    margin-top: 2rem;
+    font-size: 2.5rem; /* Reduce map title font size */
+    padding-top: 3rem;
   }
 
   .map-subtitle {
@@ -556,10 +578,16 @@ svg {
     max-width: 90%;
   }
 
-  /* --- Search Form --- */
+  /* --- Search Form Fix for 925px and below --- */
+  .search-form-section {
+    margin: 0 auto;
+    margin-top: 0 !important;
+    margin-bottom: 1.8rem;
+    width: 50%; /* This is now the effective width */
+  }
+
   .search-form {
-    width: 280px;
-    gap: 1rem;
+    width: 98%;
   }
 
   .search-btn {
@@ -593,38 +621,27 @@ svg {
 }
 
 @media (max-width: 800px) {
-  /* .nav-container1 {
-    width: 40%;
-    display: flex;
-    justify-content: space-around;
-  } */
-
   .logo-group {
     width: 60%;
-    margin-top: 1rem;
   }
 
-  /* .logo-image {
-    height: 5rem;
-    
-  }
-
-  .logo-text {
-    font-size: 1.7rem;
-    
-  } */
   #user-menu-toggle i {
-    margin-top: 1rem;
     font-size: 1.7rem;
   }
-}
-@media (max-width: 660px) {
-  .logo-group {
-    width: 85%;
+  .map-title {
+    font-size: 2.1rem; /* Reduce map title font size */
   }
 
-  .logo-image {
-    height: 4.5rem;
+  .map_container {
+    margin-left: 11rem;
+  }
+
+  .search-form-section {
+    width: 50%; /* This will override the 925px width */
+  }
+
+  .search-form {
+    width: 97%;
   }
 }
 
@@ -653,11 +670,38 @@ svg {
     margin-top: 0.9rem;
     font-size: 1.7rem;
   }
+
+  .map-title {
+    font-size: 1.7rem; /* Reduce map title font size */
+  }
+
+  .map_container {
+    margin-left: 7rem;
+  }
+
+  .search-form-section {
+    width: 55%;
+  }
+
+  .search-form {
+    width: 96%;
+  }
+}
+
+@media (max-width = 600px) {
+  .search-form-section {
+    width: 75%;
+  }
+
+  .search-form {
+    width: 97%;
+  }
+
 }
 
 @media (max-width: 500px) {
   .logo-group {
-    width: 70%;
+    width: 78%;
   }
 
   .logo-image {
@@ -684,6 +728,22 @@ svg {
 
   .carousel-card {
     margin: 0.6rem 0 0 2.5rem;
+  }
+
+  .search-form-section {
+    width: 70%;
+  }
+
+  .search-form {
+    width: 97%;
+  }
+
+  .map-title {
+    font-size: 1.7rem; /* Reduce map title font size */
+  }
+
+  .map_container {
+    margin-left: 5rem;
   }
 }
 
@@ -716,5 +776,21 @@ svg {
 
   .carousel-card {
     margin: 0.6rem 0 0 1rem;
+  }
+
+  .search-form-section {
+    width: 80%;
+  }
+
+  .search-form {
+    width: 98%;
+  }
+
+  .map-title {
+    font-size: 1.7rem; /* Reduce map title font size */
+  }
+
+  .map_container {
+    margin-left: 4rem;
   }
 }
