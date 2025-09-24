@@ -1,6 +1,6 @@
 const Listing = require("./modules/listing.js");
-const Place = require("./modules/listing.js");
-const Shop = require("./modules/listing.js");
+const Place = require("./modules/place.js");
+const Shop = require("./modules/shop.js");
 const Review = require("./modules/review.js");
 const { listingSchema } = require("./schema.js");
 const { placeSchema } = require("./schema.js");
