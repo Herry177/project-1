@@ -85,9 +85,15 @@
             <i class="fa-solid fa-star-half-alt"></i>
             <% } %>
           </span>
+          <button 
+          class="btn btn-outline-dark btn-sm ms-3"
+          onclick="shareContent('<%= listing.title %>', window.location.href)"
+        >
+          <i class="fa-solid fa-share-alt"></i> Share Listing
+        </button>
         </p>
-      </div>
     </div>
+      </div>
     <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
     <div style="padding-left: 0rem !important;" class="btns">
       <a
@@ -280,80 +286,107 @@
 </div>
 <script src="/js/map.js"></script>
 <script>
-  let btn = document.querySelector(".trip-plan-btn");
-  let inps = document.querySelectorAll(".calender");
-  btn.addEventListener("click", (event) => {
-    event.preventDefault();
-    for (inp of inps) {
-      console.log(inp.value);
+    // --- SHARE FUNCTION START ---
+    function shareContent(title, url) {
+        const shareData = {
+            title: title,
+            text: `Check out this amazing place to stay: ${title}!`,
+            url: url
+        };
+
+        // 1. Use the Web Share API (Modern Browsers)
+        if (navigator.share) {
+            navigator.share(shareData)
+                .then(() => console.log('Content shared successfully'))
+                .catch((error) => console.error('Error sharing:', error));
+        } else {
+            // 2. Fallback: Copy the URL (Older Browsers/Desktop)
+            try {
+                navigator.clipboard.writeText(url);
+                alert('Link copied to clipboard!');
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+                // Final alert for true unsupported cases
+                alert(`Share failed. Please manually copy the link: ${url}`);
+            }
+        }
     }
-  });
-</script>
-<script>
-  const checkoutInput = document.getElementById("checkout");
-  const checkinInput = document.getElementById("checkin");
+    // --- SHARE FUNCTION END ---
 
-  const checkout = flatpickr("#checkout", {
-    enableTime: true,
-    dateFormat: "Y-m-d",
-    minDate: "today",
-    clickOpens: false,
-    disableMobile: true,
-  });
+  let btn = document.querySelector(".trip-plan-btn");
+  let inps = document.querySelectorAll(".calender");
+  btn.addEventListener("click", (event) => {
+    event.preventDefault();
+    for (inp of inps) {
+      console.log(inp.value);
+    }
+  });
 
-  const checkin = flatpickr("#checkin", {
-    enableTime: true,
-    dateFormat: "Y-m-d",
-    minDate: "today",
-    disableMobile: true,
-    onChange: function(selectedDates, dateStr, instance) {
-      if (selectedDates[0]) {
-        checkoutInput.removeAttribute("disabled");
-        checkout.set("minDate", selectedDates[0].fp_incr(1));
-        checkout.set("clickOpens", true);
-        checkout.clear();
-      }
-    },
-  });
 
-  const tripBtn = document.querySelector(".trip-plan-btn");
-  tripBtn.addEventListener("click", () => {
-    if (checkoutInput.value) {
-      const checkinDate = new Date(checkinInput.value);
-      const checkoutDate = new Date(checkoutInput.value);
-      let datedisplayIn = document.querySelector(".checkin-date");
-      let datedisplayOut = document.querySelector(".checkout-date");
+  const checkoutInput = document.getElementById("checkout");
+  const checkinInput = document.getElementById("checkin");
 
-      const diffTime = checkoutDate - checkinDate;
-      const nights = diffTime / (1000 * 60 * 60 * 24);
+  const checkout = flatpickr("#checkout", {
+    enableTime: true,
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    clickOpens: false,
+    disableMobile: true,
+  });
 
-      let platformFees;
-      if (nights > 15) {
-        platformFees = 3500;
-      } else if (nights > 10) {
-        platformFees = 3000;
-      } else if (nights > 5) {
-        platformFees = 2000;
-      } else {
-        platformFees = 1500;
-      }
+  const checkin = flatpickr("#checkin", {
+    enableTime: true,
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    disableMobile: true,
+    onChange: function(selectedDates, dateStr, instance) {
+      if (selectedDates[0]) {
+        checkoutInput.removeAttribute("disabled");
+        checkout.set("minDate", selectedDates[0].fp_incr(1));
+        checkout.set("clickOpens", true);
+        checkout.clear();
+      }
+    },
+  });
 
-      let pricePerNightCon = document.querySelector("#pricePerNight");
-      pricePerNightCon.style.display = "flex";
+  const tripBtn = document.querySelector(".trip-plan-btn");
+  tripBtn.addEventListener("click", () => {
+    if (checkoutInput.value) {
+      const checkinDate = new Date(checkinInput.value);
+      const checkoutDate = new Date(checkoutInput.value);
+      let datedisplayIn = document.querySelector(".checkin-date");
+      let datedisplayOut = document.querySelector(".checkout-date");
 
-      datedisplayIn.innerText = checkinInput.value;
-      datedisplayOut.innerText = checkoutInput.value;
+      const diffTime = checkoutDate - checkinDate;
+      const nights = diffTime / (1000 * 60 * 60 * 24);
 
-      let price = document.querySelector(".price");
-      console.log(nights * listing.price);
-      console.log(platformFees);
-      console.log(nights * listing.price);
-      console.log(((nights * listing.price + platformFees) * 18) / 100);
-      price.innerHTML = `<b style="font-size: 1.25rem">${
-        nights * listing.price +
-        platformFees +
-        (((nights * listing.price + platformFees) * 18) / 100)
-      }&#8377</b>&nbsp;<span style="font-size: 0.8rem; opacity: 0.7; display: flex; align-items: end; padding-bottom: 0.18rem;">&nbsp;For ${nights} night.</span>`;
-    }
-  });
+      let platformFees;
+      if (nights > 15) {
+        platformFees = 3500;
+      } else if (nights > 10) {
+        platformFees = 3000;
+      } else if (nights > 5) {
+        platformFees = 2000;
+      } else {
+        platformFees = 1500;
+      }
+
+      let pricePerNightCon = document.querySelector("#pricePerNight");
+      pricePerNightCon.style.display = "flex";
+
+      datedisplayIn.innerText = checkinInput.value;
+      datedisplayOut.innerText = checkoutInput.value;
+
+      let price = document.querySelector(".price");
+      console.log(nights * listing.price);
+      console.log(platformFees);
+      console.log(nights * listing.price);
+      console.log(((nights * listing.price + platformFees) * 18) / 100);
+      price.innerHTML = `<b style="font-size: 1.25rem">${
+        nights * listing.price +
+        platformFees +
+        (((nights * listing.price + platformFees) * 18) / 100)
+      }&#8377</b>&nbsp;<span style="font-size: 0.8rem; opacity: 0.7; display: flex; align-items: end; padding-bottom: 0.18rem;">&nbsp;For ${nights} night.</span>`;
+    }
+  });
 </script>
