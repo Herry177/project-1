@@ -203,6 +203,25 @@ svg {
   height: auto;
   border: none;
   flex: 2;
+  animation: appear 1s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .land {
@@ -210,11 +229,12 @@ svg {
   stroke: #ffffff;
   stroke-width: 0.5;
   cursor: pointer;
-  transition: fill 0.3s;
+  transition: all 0.3s;
 }
 
 .land:hover {
   fill: #2980b9;
+  transform: scale(1.01);
 }
 
 .selected {
@@ -696,7 +716,6 @@ svg {
   .search-form {
     width: 97%;
   }
-
 }
 
 @media (max-width: 500px) {
@@ -739,7 +758,7 @@ svg {
   }
 
   .map-title {
-    font-size: 1.7rem; /* Reduce map title font size */
+    font-size: 1.4rem; /* Reduce map title font size */
   }
 
   .map_container {
@@ -787,7 +806,7 @@ svg {
   }
 
   .map-title {
-    font-size: 1.7rem; /* Reduce map title font size */
+    font-size: 1.4rem; /* Reduce map title font size */
   }
 
   .map_container {

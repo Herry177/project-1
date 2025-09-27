@@ -742,6 +742,12 @@ input[type="range"] {
   .tax-toggle {
     display: none;
   }
+
+  .signup-heading{
+    font-size: 1.4rem;
+  }
+
+  
 }
 
 @media (max-width: 450px) {

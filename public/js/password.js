@@ -24,10 +24,10 @@ let typewriter = new Typewriter(app, {
 
 typewriter
   .pauseFor(1000)
-  .typeString("Wanderlust!")
+  .typeString("Trippeo!")
   .pauseFor(1500)
   .deleteAll(50)
-  .typeString(" & explore the world!")
+  .typeString(" & explore.")
   .pauseFor(2000)
   .deleteAll(50)
   .start();
@@ -43,10 +43,10 @@ let typewriter1 = new Typewriter(app1, {
 
 typewriter1
   .pauseFor(1000)
-  .typeString("Wanderlust Awaits!")
+  .typeString("Trippeo Awaits!")
   .pauseFor(1500)
   .deleteAll(50)
-  .typeString("Join us & explore the world!")
+  .typeString("Join us & explore.")
   .pauseFor(2000)
   .deleteAll(50)
   .start();

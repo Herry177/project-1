@@ -29,7 +29,7 @@
                     <!-- Changed class to scroll-container-rtl for right-to-left animation -->
                     <div class="scroll-container scroll-container-rtl flex space-x-6 pb-4">
                         <% hotels.forEach(hotel => { %>
-                            <div class="card-wrapper w-96 flex-shrink-0">
+                            <div class="card-wrapper flex-shrink-0">
                                 <a href="/listings/<%= hotel._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative">
@@ -48,7 +48,7 @@
                         <% }) %>
                         <!-- Duplicate content for seamless looping -->
                         <% hotels.forEach(hotel => { %>
-                            <div class="card-wrapper w-96 flex-shrink-0">
+                            <div class="card-wrapper flex-shrink-0">
                                 <a href="/listings/<%= hotel._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative">
@@ -77,7 +77,7 @@
                 <div class="flex overflow-x-hidden">
                     <div class="scroll-container scroll-container-ltr flex space-x-6 pb-4">
                         <% touristPlaces.forEach(touristPlace => { %>
-                            <div class="card-wrapper w-96 flex-shrink-0">
+                            <div class="card-wrapper flex-shrink-0">
                                 <a href="/places/<%= touristPlace._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative">
@@ -96,7 +96,7 @@
                         <% }) %>
                         <!-- Duplicate content for seamless looping -->
                         <% touristPlaces.forEach(touristPlace => { %>
-                            <div class="card-wrapper w-96 flex-shrink-0">
+                            <div class="card-wrapper flex-shrink-0">
                                 <a href="/places/<%= touristPlace._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative">
@@ -125,7 +125,7 @@
                 <div class="flex overflow-x-hidden">
                     <div class="scroll-container scroll-container-rtl flex space-x-6 pb-4">
                         <% localShops.forEach(localShop => { %>
-                            <div class="card-wrapper w-96 flex-shrink-0">
+                            <div class="card-wrapper flex-shrink-0">
                                 <a href="/shops/<%= localShop._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative">
@@ -144,7 +144,7 @@
                         <% }) %>
                         <!-- Duplicate content for seamless looping -->
                         <% localShops.forEach(localShop => { %>
-                            <div class="card-wrapper w-96 flex-shrink-0">
+                            <div class="card-wrapper flex-shrink-0">
                                 <a href="/shops/<%= localShop._id %>" class="listing-link">
                                     <div class="card listing-card bg-white rounded-xl shadow-md overflow-hidden">
                                         <div class="relative">

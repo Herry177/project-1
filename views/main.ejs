@@ -91,6 +91,7 @@
     </nav>
     <div class="bg_container">
       <h2 class="map-title">Discover India's Tapestry of States</h2>
+      <p class="note">Select State From Map Or Search.</p>
       <div class="map-and-form-container">
         <div class="map_container">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
@@ -329,7 +330,6 @@
           </form>
         </div>
       </div>
-      <p class="note">Select State From Map Or Search.</p>
     </div>
 
     <div class="scrolling-text-section">
@@ -502,7 +502,6 @@
             window.location.href = `/states/${encodeURIComponent(stateName)}`;
           } else {
             // Optionally handle empty input, e.g., show a custom message
-            // Instead of alert(), use a more graceful UI
             console.log("Please enter a state name to search.");
           }
         });
@@ -523,24 +522,32 @@
           const items = inner.querySelectorAll(".carousel-item");
           const totalCards = items.length;
 
-          if (totalCards <= 3) {
+          // Only proceed with animation if there's more than one card.
+          if (totalCards <= 1) {
             inner.style.justifyContent = "center";
             return;
           }
 
-          let currentIndex = 0;
-          let intervalId;
-          let groupSize = 3;
+          // Clear any existing clones before re-initializing
+          while (inner.children.length > totalCards) {
+            inner.removeChild(inner.lastChild);
+          }
 
-          for (let i = 0; i < groupSize; i++) {
+          // Clone ALL original items once to ensure a seamless "infinite" loop,
+          // which is crucial for carousels with 2 cards.
+          for (let i = 0; i < totalCards; i++) {
             const clone = items[i].cloneNode(true);
             inner.appendChild(clone);
           }
+
+          let currentIndex = 0;
+          let intervalId;
 
           const getCardWidth = () => {
             const item = inner.querySelector(".carousel-item");
             if (!item) return 0;
             const style = window.getComputedStyle(item);
+            // Calculate the total width including margin, adapting to current screen size
             return (
               item.offsetWidth +
               parseFloat(style.marginLeft) +
@@ -550,29 +557,42 @@
 
           const moveCarousel = () => {
             currentIndex++;
+            // The slide distance is always calculated based on the width of ONE card,
+            // which adapts for 1-card mobile views and multi-card desktop views.
             const slideDistance = currentIndex * getCardWidth();
 
             inner.style.transition = "transform 1s ease-in-out";
             inner.style.transform = `translateX(${-slideDistance}px)`;
 
+            // Reset to the beginning instantly after the last original item scrolls off
             if (currentIndex >= totalCards) {
               setTimeout(() => {
                 inner.style.transition = "none";
                 inner.style.transform = `translateX(0)`;
                 currentIndex = 0;
-              }, 1000);
+              }, 1000); // Must match the transition time
             }
           };
 
+          // Ensure only one interval is running
+          if (carousel.intervalRef) {
+            clearInterval(carousel.intervalRef);
+          }
           intervalId = setInterval(moveCarousel, 4000);
+          carousel.intervalRef = intervalId; // Store reference for clean up
 
-          window.addEventListener("resize", () => {
-            clearInterval(intervalId);
-            inner.style.transition = "none";
-            inner.style.transform = "translateX(0)";
-            currentIndex = 0;
-            intervalId = setInterval(moveCarousel, 4000);
-          });
+          // Handle resizing to reset and restart the animation
+          window.addEventListener(
+            "resize",
+            () => {
+              // Clear and restart the animation to recalculate the card width
+              // and ensure the clones are correct for the new size.
+              clearInterval(intervalId);
+              // A simple re-call will clear existing clones and set up fresh.
+              startCarouselAnimation(carouselId);
+            },
+            { once: true }
+          ); // Use { once: true } to prevent excessive listeners
         }
 
         startCarouselAnimation("listings-carousel");
