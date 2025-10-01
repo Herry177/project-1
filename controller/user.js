@@ -60,7 +60,7 @@ module.exports.loginFormRender = (req, res) => {
 
 // --- LOGIN POST ---
 module.exports.loginPostRoute = (req, res) => {
-    req.flash("success", "Welcome Back To Trippeo!");
+    req.flash("success", "Welcome Back!");
     let redirect = res.locals.redirectUrl || "/";
     res.redirect(redirect);
 };
@@ -81,8 +81,7 @@ module.exports.verifyFormRender = (req, res) => {
 };
 
 // --- VERIFY ACCOUNT ---
-// FIX APPLIED: Added 'next' to the arguments to resolve the req.login issue.
-module.exports.verifyAccount = async (req, res, next) => {
+module.exports.verifyAccount = async (req, res) => {
     const { email, code } = req.body;
 
     if (!email) {
@@ -110,9 +109,8 @@ module.exports.verifyAccount = async (req, res, next) => {
 
         req.login(user, (err) => {
             if (err) return next(err);
-            console.log(user);
             req.flash("success", "Account verified successfully!");
-            res.redirect(res.locals.redirectUrl || "/");
+            res.redirect("/listings");
         });
     } catch (err) {
         console.error("Verify Error:", err);
