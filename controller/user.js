@@ -81,7 +81,8 @@ module.exports.verifyFormRender = (req, res) => {
 };
 
 // --- VERIFY ACCOUNT ---
-module.exports.verifyAccount = async (req, res) => {
+// FIX APPLIED: Added 'next' to the arguments to resolve the req.login issue.
+module.exports.verifyAccount = async (req, res, next) => {
     const { email, code } = req.body;
 
     if (!email) {

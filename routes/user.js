@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../modules/user.js");
-const wrapAsync = require("../utils/wrapAsync");
+const wrapAsync = require("../utils/wrapAsync.js"); // Ensure this is imported
 const passport = require("passport");
 const { saveredirectUrl } = require("../miiddleware.js");
 const { commonPasswords } = require("../commonpasses.js");
@@ -61,6 +61,8 @@ router.get("/logout", userController.logout);
 
 // --- NEW EMAIL VERIFICATION ROUTES ---
 router.get("/verify", userController.verifyFormRender);
-router.post("/verify", userController.verifyAccount);
+
+// FIX APPLIED: Wrapped the async function in wrapAsync
+router.post("/verify", wrapAsync(userController.verifyAccount));
 
 module.exports = router;
