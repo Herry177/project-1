@@ -11,25 +11,36 @@ module.exports.signupPostRoute = async (req, res) => {
     try {
         let { email, username, password } = req.body;
 
+        // 1. CHECK FOR EXISTING EMAIL (Unverified)
         let existingUser = await User.findOne({ email });
 
         if (existingUser && !existingUser.isVerified) {
+            // User exists but is unverified - resend verification code
             const code = Math.floor(100000 + Math.random() * 900000).toString();
             existingUser.verificationCode = code;
             existingUser.verificationCodeExpires = Date.now() + 3600000; // 1h
             await existingUser.save();
 
-            await sendVerificationEmail(existingUser.email, code);
-
+            // Handle potential email sending failure here
+            try {
+                await sendVerificationEmail(existingUser.email, code);
+            } catch (emailErr) {
+                console.error("Email Resend Error:", emailErr);
+                req.flash("error", "Error sending verification email. Please try again.");
+                return res.redirect("/signup");
+            }
+            
             req.flash("success", "A new verification code has been sent to your email.");
             return res.redirect(`/verify?email=${encodeURIComponent(existingUser.email)}`);
         }
 
+        // 2. CHECK FOR EXISTING EMAIL (Verified)
         if (existingUser && existingUser.isVerified) {
             req.flash("error", "This email is already registered. Please log in.");
             return res.redirect("/login");
         }
 
+        // 3. NEW USER REGISTRATION
         const code = Math.floor(100000 + Math.random() * 900000).toString();
 
         let newUser = new User({
@@ -40,15 +51,38 @@ module.exports.signupPostRoute = async (req, res) => {
             verificationCodeExpires: Date.now() + 3600000
         });
 
+        // This line can throw an error if username already exists
         let registeredUser = await User.register(newUser, password);
 
-        await sendVerificationEmail(registeredUser.email, code);
+        // Handle potential email sending failure here
+        try {
+            await sendVerificationEmail(registeredUser.email, code);
+        } catch (emailErr) {
+            console.error("Initial Email Send Error:", emailErr);
+            // Optionally: Delete the user if email failed to prevent unverified accounts
+            // await User.findByIdAndDelete(registeredUser._id);
+            req.flash("error", "User registered, but failed to send verification email. Please contact support.");
+            return res.redirect("/signup");
+        }
 
         req.flash("success", "A verification code has been sent to your email.");
         res.redirect(`/verify?email=${encodeURIComponent(registeredUser.email)}`);
+
     } catch (err) {
         console.error("Signup Error:", err);
-        req.flash("error", err.message);
+        let errorMessage = "Registration failed. Please check your inputs.";
+
+        // Passport-local-mongoose errors often have specific messages
+        if (err.name === 'UserExistsError') {
+            errorMessage = "A user with the given username is already registered.";
+        } else if (err.code && err.code === 11000) {
+            // Mongoose unique index violation (e.g., email or username if defined in schema)
+             errorMessage = "A user with this email or username already exists.";
+        } else {
+             errorMessage = err.message || "An unknown error occurred during sign up.";
+        }
+
+        req.flash("error", errorMessage);
         res.redirect("/signup");
     }
 };
@@ -81,7 +115,8 @@ module.exports.verifyFormRender = (req, res) => {
 };
 
 // --- VERIFY ACCOUNT ---
-module.exports.verifyAccount = async (req, res) => {
+// CRITICAL FIX: Added 'next' to the arguments to resolve the req.login issue.
+module.exports.verifyAccount = async (req, res, next) => {
     const { email, code } = req.body;
 
     if (!email) {
@@ -108,9 +143,11 @@ module.exports.verifyAccount = async (req, res) => {
         await user.save();
 
         req.login(user, (err) => {
-            if (err) return next(err);
+            // 'next' is now defined and handles errors
+            if (err) return next(err); 
             req.flash("success", "Account verified successfully!");
-            res.redirect("/listings");
+            // Redirect to the stored URL (from pre-login attempt) or default
+            res.redirect(res.locals.redirectUrl || "/"); 
         });
     } catch (err) {
         console.error("Verify Error:", err);
