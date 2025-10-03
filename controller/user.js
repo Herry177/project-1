@@ -1,34 +1,35 @@
-const User = require("../modules/user.js");
-const { commonPasswords } = require("../commonpasses.js");
-const sendVerificationEmail = require("../utils/sendMail.js"); 
+const User = require("../modules/user");
+const sendVerificationEmail = require("../utils/sendMail");
 
-// The duration for code validity (10 minutes in milliseconds)
-const CODE_VALIDITY_DURATION = 10 * 60 * 1000; 
-
-// -------------------------------------------------------------------
-// 1. SIGNUP
-// -------------------------------------------------------------------
-
+// --- SIGNUP FORM ---
 module.exports.signupFormRender = (req, res) => {
     res.render("user/signUp.ejs");
 };
 
-// FIX: Added 'next' to the arguments to resolve the req.login issue.
-module.exports.signupPostRoute = async (req, res, next) => {
+// --- SIGNUP POST ---
+module.exports.signupPostRoute = async (req, res) => {
     try {
         let { email, username, password } = req.body;
-        
-        // --- Password Check Logic (Kept as is) ---
-        if (password) {
-            for (let i = 0; i < commonPasswords.length; i++) {
-                if (password === commonPasswords[i] || password === username) {
-                    req.flash("error", "You used most common password or don't use username as a password!");
-                    return res.redirect("/signup");
-                }
-            }
+
+        let existingUser = await User.findOne({ email });
+
+        if (existingUser && !existingUser.isVerified) {
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            existingUser.verificationCode = code;
+            existingUser.verificationCodeExpires = Date.now() + 3600000; // 1h
+            await existingUser.save();
+
+            await sendVerificationEmail(existingUser.email, code);
+
+            req.flash("success", "A new verification code has been sent to your email.");
+            return res.redirect(`/verify?email=${encodeURIComponent(existingUser.email)}`);
         }
-        
-        // --- Email Verification Logic Added ---
+
+        if (existingUser && existingUser.isVerified) {
+            req.flash("error", "This email is already registered. Please log in.");
+            return res.redirect("/login");
+        }
+
         const code = Math.floor(100000 + Math.random() * 900000).toString();
 
         let newUser = new User({
@@ -36,88 +37,71 @@ module.exports.signupPostRoute = async (req, res, next) => {
             username,
             isVerified: false,
             verificationCode: code,
-            verificationCodeExpires: Date.now() + CODE_VALIDITY_DURATION
+            verificationCodeExpires: Date.now() + 3600000
         });
 
         let registeredUser = await User.register(newUser, password);
-        
-        // NOTE: If sendVerificationEmail fails, you should handle the error and delete the user here.
-        // For simplicity and to match the prompt's request for verification, we assume success.
+
         await sendVerificationEmail(registeredUser.email, code);
 
-        // Instead of logging in immediately, redirect to verification page
         req.flash("success", "A verification code has been sent to your email.");
         res.redirect(`/verify?email=${encodeURIComponent(registeredUser.email)}`);
-
-    } catch (e) {
-        console.error("Signup Error:", e);
-        req.flash("error", e.message || "An error occurred during sign up.");
+    } catch (err) {
+        console.error("Signup Error:", err);
+        req.flash("error", err.message);
         res.redirect("/signup");
     }
 };
 
-// -------------------------------------------------------------------
-// 2. LOGIN & LOGOUT (Keep as is)
-// -------------------------------------------------------------------
-
+// --- LOGIN FORM ---
 module.exports.loginFormRender = (req, res) => {
     res.render("user/login.ejs");
 };
 
-module.exports.loginPostRoute = async (req, res) => {
+// --- LOGIN POST ---
+module.exports.loginPostRoute = (req, res) => {
     req.flash("success", "Welcome Back To Trippeo!");
-    let redirect = res.locals.redirectUrl || "/listings";
+    let redirect = res.locals.redirectUrl || "/";
     res.redirect(redirect);
 };
 
+// --- LOGOUT ---
 module.exports.logout = (req, res, next) => {
-    req.logOut((err) => {
-        if (err) {
-            return next(err);
-        }
+    req.logout((err) => {
+        if (err) return next(err);
         req.flash("success", "You are logged out!");
-        res.redirect("/listings");
+        res.redirect("/");
     });
 };
 
-// --- NEW VERIFICATION FUNCTIONS (Required for the new flow) ---
-
-// Renders the verification form
+// --- VERIFY FORM ---
 module.exports.verifyFormRender = (req, res) => {
     const email = req.query.email || "";
     res.render("user/verify.ejs", { email });
 };
 
-module.exports.verifyAccount = async (req, res, next) => {
+// --- VERIFY ACCOUNT ---
+module.exports.verifyAccount = async (req, res) => {
     const { email, code } = req.body;
-    const trimmedCode = code.trim(); // Always trim the input code
+
+    if (!email) {
+        req.flash("error", "Verification email missing. Please sign up again.");
+        return res.redirect("/signup");
+    }
 
     try {
         const user = await User.findOne({ email });
 
-        if (!user || user.isVerified) {
-            req.flash("error", "User not found or already verified.");
-            return res.redirect("/signup"); // Redirect to signup if user doesn't exist
+        if (!user) {
+            req.flash("error", "User not found.");
+            return res.redirect("/signup");
         }
 
-        // 1. Check for Code Expiration
-        const isExpired = user.verificationCodeExpires < Date.now();
-
-        if (isExpired) {
-            // Delete the user if the code is expired and they aren't verified
-            await User.findByIdAndDelete(user._id);
-            req.flash("error", "Verification code has **expired** (10 minutes). Please sign up again.");
-            return res.redirect("/signup"); // Force re-signup only if expired
+        if (user.verificationCode !== code.trim() || user.verificationCodeExpires < Date.now()) {
+            req.flash("error", "Invalid or expired code.");
+            return res.redirect(`/verify?email=${encodeURIComponent(email)}`);
         }
 
-        // 2. Check for Correct Code (Only if not expired)
-        if (user.verificationCode !== trimmedCode) {
-            // Do NOT delete the user. Allow them to try again.
-            req.flash("error", "Invalid verification code. Please check your email and try again.");
-            return res.redirect(`/verify?email=${encodeURIComponent(user.email)}`); // Redirect back to verify page
-        }
-
-        // 3. Verification Successful
         user.isVerified = true;
         user.verificationCode = undefined;
         user.verificationCodeExpires = undefined;
@@ -125,13 +109,13 @@ module.exports.verifyAccount = async (req, res, next) => {
 
         req.login(user, (err) => {
             if (err) return next(err);
-            req.flash("success", "Account verified successfully! Welcome to Trippeo.");
-            res.redirect(res.locals.redirectUrl || "/listings");
+            console.log(user);
+            req.flash("success", "Account verified successfully!");
+            res.redirect(res.locals.redirectUrl || "/");
         });
-
     } catch (err) {
         console.error("Verify Error:", err);
-        req.flash("error", "Verification failed due to a server error.");
-        res.redirect(`/verify?email=${encodeURIComponent(email)}`); // Redirect back to verify page on generic error
+        req.flash("error", err.message);
+        res.redirect("/verify");
     }
 };
