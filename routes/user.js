@@ -6,41 +6,51 @@ const passport = require("passport");
 const { saveredirectUrl } = require("../miiddleware.js");
 const { commonPasswords } = require("../commonpasses.js");
 const userController = require("../controller/user.js");
+const user = require("../modules/user.js");
 
 // -------------------------------------------------------------------
-// SIGNUP ROUTE (Sign-up will no longer send verification email)
+// SIGNUP ROUTE
 // -------------------------------------------------------------------
 router.route("/signup")
-  .get(userController.signupFormRender)
-  .post(
-    // NOTE: userController.signupPostRoute must be updated to NOT send email
-    wrapAsync(userController.signupPostRoute)
-  );
+    .get(userController.signupFormRender)
+    .post(
+        wrapAsync(userController.signupPostRoute)
+    );
 
 // -------------------------------------------------------------------
-// LOGIN ROUTE (Direct login without verification check)
+// LOCAL LOGIN ROUTE (Verification Check REMOVED)
 // -------------------------------------------------------------------
 router.route("/login")
-  .get(userController.loginFormRender)
-  .post(
-    saveredirectUrl,
-    passport.authenticate("local", {
-      failureRedirect: "/login",
-      failureFlash: true,
-    }),
-    // VERIFICATION CHECK MIDDLEWARE REMOVED HERE
-    userController.loginPostRoute
-  );
+    .get(userController.loginFormRender)
+    .post(
+        saveredirectUrl,
+        passport.authenticate("local", {
+            failureRedirect: "/login",
+            failureFlash: true,
+        }),
+        // 💥 VERIFICATION CHECK MIDDLEWARE REMOVED HERE
+        userController.loginPostRoute
+    );
 
 // -------------------------------------------------------------------
-// LOGOUT ROUTE
+// GOOGLE LOGIN ROUTES (KEPT)
 // -------------------------------------------------------------------
+
+// 1. Initiate Google authentication
+router.get("/auth/google",
+    saveredirectUrl, // Added saveredirectUrl for user convenience
+    passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// 2. Google callback route
+router.get("/auth/google/callback",
+    passport.authenticate("google", {
+        failureRedirect: "/login",
+        failureFlash: true,
+    }),
+    userController.loginPostRoute
+);
+
 router.get("/logout", userController.logout);
-
-// -------------------------------------------------------------------
-// EMAIL VERIFICATION ROUTES (REMOVED)
-// -------------------------------------------------------------------
-// router.get("/verify", userController.verifyFormRender); // REMOVED
-// router.post("/verify", userController.verifyAccount); // REMOVED
 
 module.exports = router;
