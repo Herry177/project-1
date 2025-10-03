@@ -6,61 +6,41 @@ const passport = require("passport");
 const { saveredirectUrl } = require("../miiddleware.js");
 const { commonPasswords } = require("../commonpasses.js");
 const userController = require("../controller/user.js");
-const user = require("../modules/user.js");
 
+// -------------------------------------------------------------------
+// SIGNUP ROUTE (Sign-up will no longer send verification email)
+// -------------------------------------------------------------------
 router.route("/signup")
-  .get(userController.signupFormRender)
-  .post(
-    wrapAsync(userController.signupPostRoute)
-  );
+  .get(userController.signupFormRender)
+  .post(
+    // NOTE: userController.signupPostRoute must be updated to NOT send email
+    wrapAsync(userController.signupPostRoute)
+  );
 
-// --- UPDATED LOGIN ROUTE WITH VERIFICATION CHECK ---
+// -------------------------------------------------------------------
+// LOGIN ROUTE (Direct login without verification check)
+// -------------------------------------------------------------------
 router.route("/login")
-  .get(userController.loginFormRender)
-  .post(
-    saveredirectUrl,
-    passport.authenticate("local", {
-      failureRedirect: "/login",
-      failureFlash: true,
-    }),
-    (req, res, next) => {
-      if (req.user && !req.user.isVerified) {
-        req.logout((err) => {
-          if (err) {
-            return next(err);
-          }
-          req.flash("error", "Please verify your email to log in.");
-          res.redirect("/login");
-        });
-      } else {
-        next();
-      }
-    },
-    userController.loginPostRoute
-  );
+  .get(userController.loginFormRender)
+  .post(
+    saveredirectUrl,
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureFlash: true,
+    }),
+    // VERIFICATION CHECK MIDDLEWARE REMOVED HERE
+    userController.loginPostRoute
+  );
 
-// --- Google Login Routes ---
-router.get("/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-router.get("/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
-  (req, res) => {
-    req.flash("success", "Successfully logged in with Google!");
-    const redirectUrl = res.locals.redirectUrl || "/listings";
-    res.redirect(redirectUrl);
-  }
-);
-
-// --- Logout Route ---
+// -------------------------------------------------------------------
+// LOGOUT ROUTE
+// -------------------------------------------------------------------
 router.get("/logout", userController.logout);
 
-// --- NEW EMAIL VERIFICATION ROUTES ---
-router.get("/verify", userController.verifyFormRender);
-router.post("/verify", userController.verifyAccount);
+// -------------------------------------------------------------------
+// EMAIL VERIFICATION ROUTES (REMOVED)
+// -------------------------------------------------------------------
+// router.get("/verify", userController.verifyFormRender); // REMOVED
+// router.post("/verify", userController.verifyAccount); // REMOVED
 
 module.exports = router;
