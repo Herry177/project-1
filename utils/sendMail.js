@@ -1,32 +1,28 @@
 const nodemailer = require("nodemailer");
 
-// IMPORTANT: These environment variables must be set on Render
-// E.g., NODEMAILER_USER, NODEMAILER_PASS, NODEMAILER_SERVICE
-const { NODEMAILER_USER, NODEMAILER_PASS, NODEMAILER_SERVICE } = process.env;
-
-// 1. Define the Transporter
 let transporter = nodemailer.createTransport({
-    // Using a service like 'gmail' is often easiest, but requires an App Password
-    service: process.env.NODEMAILER_SERVICE || 'gmail', 
+   
+    service: 'gmail', 
+    host: 'smtp.gmail.com', 
+    port: 465,             
+    secure: true,         
     auth: {
-        user: process.env.NODEMAILER_USER, // Your email address
-        pass: process.env.NODEMAILER_PASS  // Your email password or application-specific password
+        user: process.env.NODEMAILER_USER, 
+        pass: process.env.NODEMAILER_PASS 
     }
 });
 
-// 2. Define the Exported Function
 async function sendVerificationEmail(email, code) {
-    if (!NODEMAILER_USER || !NODEMAILER_PASS) {
-        // Log a warning if environment variables are missing
-        console.warn("Nodemailer credentials are NOT set. Skipping email send.");
-        // Throw an error so the signup route knows the email failed
-        throw new Error("Email service is not configured."); 
+    if (!process.env.NODEMAILER_USER || !process.env.NODEMAILER_PASS) {
+        console.error("Nodemailer credentials missing. Check environment variables.");
+        throw new Error("Email service is not configured (Missing credentials)."); 
     }
 
     const mailOptions = {
-        from: NODEMAILER_USER,
+        from: process.env.NODEMAILER_USER,
         to: email,
         subject: "Trippeo Account Verification Code",
+        // ... (HTML content as before) ...
         html: `
             <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
                 <h2 style="color: #38A169;">Verify Your Trippeo Account</h2>
@@ -40,16 +36,15 @@ async function sendVerificationEmail(email, code) {
         `
     };
 
-    // 3. Send the email
     try {
         let info = await transporter.sendMail(mailOptions);
         console.log("Verification email sent: %s", info.messageId);
         return info;
     } catch (error) {
-        console.error("Error sending verification email:", error);
-        throw error; // Rethrow to be caught in the controller
+        console.error("Error sending verification email:", error.message || error);
+        // Throw an error with the SMTP response if possible for better debugging
+        throw new Error(`SMTP Error: ${error.response || error.message}`); 
     }
 };
 
-// 4. Export the function
 module.exports = sendVerificationEmail;

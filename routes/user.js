@@ -7,42 +7,61 @@ const { saveredirectUrl } = require("../miiddleware.js");
 const { commonPasswords } = require("../commonpasses.js");
 const userController = require("../controller/user.js");
 
+// -------------------------------------------------------------------
+// SIGNUP ROUTE
+// -------------------------------------------------------------------
 router.route("/signup")
-//signup routes
 .get(userController.signupFormRender)
 .post(
-  wrapAsync(userController.signupPostRoute)
+    wrapAsync(userController.signupPostRoute)
 );
 
+// -------------------------------------------------------------------
+// LOGIN ROUTE
+// -------------------------------------------------------------------
 router.route("/login")
-//login routes
 .get(userController.loginFormRender)
 .post(
-  saveredirectUrl, 
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
-  // CRUCIAL: Middleware to prevent unverified users from logging in
-  (req, res, next) => {
-      if (req.user && !req.user.isVerified) {
-          req.logout((err) => {
-              if (err) return next(err);
-              req.flash("error", "Please verify your email to log in.");
-              return res.redirect(`/verify?email=${encodeURIComponent(req.user.email)}`);
-          });
-      } else {
-          next();
-      }
-  },
-  userController.loginPostRoute
+    saveredirectUrl, 
+    passport.authenticate("local", {
+        failureRedirect: "/login",
+        failureFlash: true,
+    }),
+    
+    // 💥 IMPROVEMENT: Check verification status and handle immediate logout
+    (req, res, next) => {
+        if (req.user && !req.user.isVerified) {
+            // Log out the user immediately after passport logs them in
+            req.logout((err) => {
+                // Handle the rare logout error, then proceed with redirect
+                if (err) {
+                    console.error("Logout error during verification check:", err);
+                    req.flash("error", "An error occurred during logout. Please try logging in again.");
+                    return res.redirect("/login");
+                }
+                
+                // User is successfully logged out (session cleared).
+                // Now, flash the error and redirect to the verify page.
+                req.flash("error", "Please verify your email to log in.");
+                return res.redirect(`/verify?email=${encodeURIComponent(req.user.email)}`);
+            });
+        } else {
+            // User is verified, proceed to the final login handler
+            next();
+        }
+    },
+    userController.loginPostRoute // Final handler for verified users
 );
 
-//logout route
+// -------------------------------------------------------------------
+// LOGOUT ROUTE
+// -------------------------------------------------------------------
 router.get("/logout", userController.logout);
 
-// --- NEW EMAIL VERIFICATION ROUTES ---
+// -------------------------------------------------------------------
+// EMAIL VERIFICATION ROUTES
+// -------------------------------------------------------------------
 router.get("/verify", userController.verifyFormRender);
-router.post("/verify", wrapAsync(userController.verifyAccount)); // CRUCIAL: Use wrapAsync for async function
+router.post("/verify", wrapAsync(userController.verifyAccount));
 
 module.exports = router;
